@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { Chart as ChartJS, ArcElement, Tooltip, Legend, BarElement, CategoryScale, LinearScale } from 'chart.js';
 import { Doughnut, Bar } from 'react-chartjs-2';
@@ -213,6 +213,26 @@ function App() {
     });
   };
 
+  // Keyboard shortcuts
+  useEffect(() => {
+    const handleKeyPress = (event) => {
+      // Ctrl/Cmd + Enter to analyze both
+      if ((event.ctrlKey || event.metaKey) && event.key === 'Enter') {
+        event.preventDefault();
+        if (githubUsername.trim() && jobDescription.trim()) {
+          handleAnalyzeBoth();
+        }
+      }
+      // Escape to clear all
+      if (event.key === 'Escape') {
+        clearAll();
+      }
+    };
+
+    document.addEventListener('keydown', handleKeyPress);
+    return () => document.removeEventListener('keydown', handleKeyPress);
+  }, [githubUsername, jobDescription]);
+
   return (
     <div className="min-h-screen bg-gray-50">
       <div className="container mx-auto px-4 py-8">
@@ -223,6 +243,9 @@ function App() {
           <p className="text-gray-600 mb-4 text-sm md:text-base">
             Analyze GitHub profiles and match them with job requirements
           </p>
+          <div className="text-xs text-gray-500 mb-2">
+            💡 <strong>Keyboard shortcuts:</strong> Ctrl/Cmd + Enter to analyze both • Escape to clear all
+          </div>
           
           {/* Quick Start Section */}
           <div className="bg-blue-50 border border-blue-200 rounded-lg p-3 md:p-4 mb-6">
@@ -307,12 +330,15 @@ function App() {
                   onChange={(e) => setGithubUsername(e.target.value)}
                   className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-primary-500"
                   placeholder="Enter GitHub username"
+                  aria-label="GitHub username"
+                  autoComplete="username"
                 />
               </div>
               <button
                 onClick={analyzeCandidate}
                 disabled={candidateLoading || jobLoading || loading}
                 className="w-full bg-primary-600 text-white py-2 px-4 rounded-md hover:bg-primary-700 disabled:opacity-50 flex items-center justify-center"
+                aria-label="Analyze GitHub profile"
               >
                 {candidateLoading ? (
                   <>
@@ -353,6 +379,7 @@ function App() {
                   className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-primary-500"
                   placeholder="Paste job description here..."
                   maxLength={5000}
+                  aria-label="Job description"
                 />
                 <div className="flex justify-between text-xs text-gray-500 mt-1">
                   <span>Minimum 10 characters</span>
@@ -365,6 +392,7 @@ function App() {
                 onClick={analyzeJob}
                 disabled={candidateLoading || jobLoading || loading}
                 className="w-full bg-primary-600 text-white py-2 px-4 rounded-md hover:bg-primary-700 disabled:opacity-50 flex items-center justify-center"
+                aria-label="Analyze job description"
               >
                 {jobLoading ? (
                   <>
