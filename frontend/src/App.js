@@ -12,8 +12,11 @@ function App() {
   const [githubUsername, setGithubUsername] = useState('');
   const [jobDescription, setJobDescription] = useState('');
   const [loading, setLoading] = useState(false);
+  const [candidateLoading, setCandidateLoading] = useState(false);
+  const [jobLoading, setJobLoading] = useState(false);
   const [matchReport, setMatchReport] = useState(null);
   const [error, setError] = useState('');
+  const [success, setSuccess] = useState('');
 
   const analyzeCandidate = async () => {
     if (!githubUsername.trim()) {
@@ -21,18 +24,20 @@ function App() {
       return;
     }
 
-    setLoading(true);
+    setCandidateLoading(true);
     setError('');
+    setSuccess('');
     
     try {
       const response = await axios.post(`${API_BASE_URL}/analyze_candidate`, {
         github_username: githubUsername
       });
       console.log('Candidate analysis:', response.data);
+      setSuccess(`✅ Successfully analyzed ${githubUsername}'s GitHub profile! Found ${response.data.candidate_skills?.length || 0} skills.`);
     } catch (err) {
       setError(`Error analyzing candidate: ${err.response?.data?.detail || err.message}`);
     } finally {
-      setLoading(false);
+      setCandidateLoading(false);
     }
   };
 
@@ -42,18 +47,20 @@ function App() {
       return;
     }
 
-    setLoading(true);
+    setJobLoading(true);
     setError('');
+    setSuccess('');
     
     try {
       const response = await axios.post(`${API_BASE_URL}/analyze_job`, {
         job_description: jobDescription
       });
       console.log('Job analysis:', response.data);
+      setSuccess(`✅ Successfully analyzed job description! Found ${response.data.job_skills?.length || 0} required skills.`);
     } catch (err) {
       setError(`Error analyzing job: ${err.response?.data?.detail || err.message}`);
     } finally {
-      setLoading(false);
+      setJobLoading(false);
     }
   };
 
@@ -131,6 +138,12 @@ function App() {
           </div>
         )}
 
+        {success && (
+          <div className="bg-green-100 border border-green-400 text-green-700 px-4 py-3 rounded mb-6">
+            {success}
+          </div>
+        )}
+
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 mb-8">
           {/* GitHub Analysis */}
           <div className="bg-white rounded-lg shadow-md p-6">
@@ -152,10 +165,20 @@ function App() {
               </div>
               <button
                 onClick={analyzeCandidate}
-                disabled={loading}
-                className="w-full bg-primary-600 text-white py-2 px-4 rounded-md hover:bg-primary-700 disabled:opacity-50"
+                disabled={candidateLoading || jobLoading || loading}
+                className="w-full bg-primary-600 text-white py-2 px-4 rounded-md hover:bg-primary-700 disabled:opacity-50 flex items-center justify-center"
               >
-                {loading ? 'Analyzing...' : 'Analyze GitHub Profile'}
+                {candidateLoading ? (
+                  <>
+                    <svg className="animate-spin -ml-1 mr-3 h-5 w-5 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                      <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
+                      <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+                    </svg>
+                    Analyzing...
+                  </>
+                ) : (
+                  'Analyze GitHub Profile'
+                )}
               </button>
             </div>
           </div>
@@ -180,10 +203,20 @@ function App() {
               </div>
               <button
                 onClick={analyzeJob}
-                disabled={loading}
-                className="w-full bg-primary-600 text-white py-2 px-4 rounded-md hover:bg-primary-700 disabled:opacity-50"
+                disabled={candidateLoading || jobLoading || loading}
+                className="w-full bg-primary-600 text-white py-2 px-4 rounded-md hover:bg-primary-700 disabled:opacity-50 flex items-center justify-center"
               >
-                {loading ? 'Analyzing...' : 'Analyze Job Description'}
+                {jobLoading ? (
+                  <>
+                    <svg className="animate-spin -ml-1 mr-3 h-5 w-5 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                      <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
+                      <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+                    </svg>
+                    Analyzing...
+                  </>
+                ) : (
+                  'Analyze Job Description'
+                )}
               </button>
             </div>
           </div>
