@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useMemo, useCallback } from 'react';
 import axios from 'axios';
 import { Chart as ChartJS, ArcElement, Tooltip, Legend, BarElement, CategoryScale, LinearScale } from 'chart.js';
 import { Doughnut, Bar } from 'react-chartjs-2';
@@ -165,27 +165,27 @@ function App() {
     return 'bg-red-500';
   };
 
-  const loadSampleJob = (index) => {
+  const loadSampleJob = useCallback((index) => {
     setJobDescription(sampleJobDescriptions[index]);
     setError('');
     setSuccess('');
-  };
+  }, []);
 
-  const loadSampleUser = (username) => {
+  const loadSampleUser = useCallback((username) => {
     setGithubUsername(username);
     setError('');
     setSuccess('');
-  };
+  }, []);
 
-  const clearAll = () => {
+  const clearAll = useCallback(() => {
     setGithubUsername('');
     setJobDescription('');
     setMatchReport(null);
     setError('');
     setSuccess('');
-  };
+  }, []);
 
-  const exportReport = () => {
+  const exportReport = useCallback(() => {
     if (!matchReport) return;
 
     const reportData = {
@@ -208,14 +208,14 @@ function App() {
     link.download = `match-report-${githubUsername}-${Date.now()}.json`;
     link.click();
     URL.revokeObjectURL(url);
-  };
+  }, [matchReport, githubUsername, jobDescription]);
 
-  const copyToClipboard = (text) => {
+  const copyToClipboard = useCallback((text) => {
     navigator.clipboard.writeText(text).then(() => {
       setSuccess('Copied to clipboard!');
       setTimeout(() => setSuccess(''), 2000);
     });
-  };
+  }, []);
 
   // Keyboard shortcuts
   useEffect(() => {
@@ -236,6 +236,36 @@ function App() {
     document.addEventListener('keydown', handleKeyPress);
     return () => document.removeEventListener('keydown', handleKeyPress);
   }, [githubUsername, jobDescription]);
+
+  // Memoized chart data to prevent unnecessary re-renders
+  const chartData = useMemo(() => {
+    if (!matchReport?.repo_insights?.languages) return null;
+    
+    const languages = matchReport.repo_insights.languages;
+    const labels = Object.keys(languages);
+    const data = Object.values(languages);
+    
+    return {
+      doughnut: {
+        labels,
+        datasets: [{
+          data,
+          backgroundColor: [
+            '#3B82F6', '#EF4444', '#10B981', '#F59E0B',
+            '#8B5CF6', '#EC4899', '#06B6D4', '#84CC16'
+          ],
+        }],
+      },
+      bar: {
+        labels: labels.slice(0, 5),
+        datasets: [{
+          label: 'Bytes of Code',
+          data: data.slice(0, 5),
+          backgroundColor: '#3B82F6',
+        }],
+      }
+    };
+  }, [matchReport?.repo_insights?.languages]);
 
   return (
     <div className="min-h-screen bg-gray-50">
@@ -572,18 +602,7 @@ function App() {
                         Language Distribution
                       </h4>
                       <Doughnut
-                        data={{
-                          labels: Object.keys(matchReport.repo_insights.languages),
-                          datasets: [
-                            {
-                              data: Object.values(matchReport.repo_insights.languages),
-                              backgroundColor: [
-                                '#3B82F6', '#EF4444', '#10B981', '#F59E0B',
-                                '#8B5CF6', '#EC4899', '#06B6D4', '#84CC16'
-                              ],
-                            },
-                          ],
-                        }}
+                        data={chartData.doughnut}
                         options={{
                           responsive: true,
                           plugins: {
@@ -599,16 +618,7 @@ function App() {
                         Top Languages (Bytes)
                       </h4>
                       <Bar
-                        data={{
-                          labels: Object.keys(matchReport.repo_insights.languages).slice(0, 5),
-                          datasets: [
-                            {
-                              label: 'Bytes of Code',
-                              data: Object.values(matchReport.repo_insights.languages).slice(0, 5),
-                              backgroundColor: '#3B82F6',
-                            },
-                          ],
-                        }}
+                        data={chartData.bar}
                         options={{
                           responsive: true,
                           plugins: {
