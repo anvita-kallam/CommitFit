@@ -217,46 +217,46 @@ function App() {
     <div className="min-h-screen bg-gray-50">
       <div className="container mx-auto px-4 py-8">
         <header className="text-center mb-8">
-          <h1 className="text-4xl font-bold text-gray-900 mb-2">
+          <h1 className="text-3xl md:text-4xl font-bold text-gray-900 mb-2">
             GitHub Candidate Match MVP
           </h1>
-          <p className="text-gray-600 mb-4">
+          <p className="text-gray-600 mb-4 text-sm md:text-base">
             Analyze GitHub profiles and match them with job requirements
           </p>
           
           {/* Quick Start Section */}
-          <div className="bg-blue-50 border border-blue-200 rounded-lg p-4 mb-6">
-            <h3 className="text-lg font-semibold text-blue-800 mb-3">🚀 Quick Start</h3>
-            <div className="flex flex-wrap gap-2 justify-center">
-              <span className="text-sm text-blue-700 font-medium">Try these popular users:</span>
+          <div className="bg-blue-50 border border-blue-200 rounded-lg p-3 md:p-4 mb-6">
+            <h3 className="text-base md:text-lg font-semibold text-blue-800 mb-3">🚀 Quick Start</h3>
+            <div className="flex flex-wrap gap-1 md:gap-2 justify-center">
+              <span className="text-xs md:text-sm text-blue-700 font-medium">Try these popular users:</span>
               {popularGitHubUsers.map((user) => (
                 <button
                   key={user}
                   onClick={() => loadSampleUser(user)}
-                  className="bg-blue-100 hover:bg-blue-200 text-blue-800 px-3 py-1 rounded-full text-sm transition-colors"
+                  className="bg-blue-100 hover:bg-blue-200 text-blue-800 px-2 md:px-3 py-1 rounded-full text-xs md:text-sm transition-colors"
                 >
                   @{user}
                 </button>
               ))}
             </div>
-            <div className="mt-3">
-              <span className="text-sm text-blue-700 font-medium">Or sample job descriptions:</span>
-              <div className="flex flex-wrap gap-2 justify-center mt-2">
+            <div className="mt-2 md:mt-3">
+              <span className="text-xs md:text-sm text-blue-700 font-medium">Or sample job descriptions:</span>
+              <div className="flex flex-wrap gap-1 md:gap-2 justify-center mt-1 md:mt-2">
                 <button
                   onClick={() => loadSampleJob(0)}
-                  className="bg-green-100 hover:bg-green-200 text-green-800 px-3 py-1 rounded-full text-sm transition-colors"
+                  className="bg-green-100 hover:bg-green-200 text-green-800 px-2 md:px-3 py-1 rounded-full text-xs md:text-sm transition-colors"
                 >
-                  Python Developer
+                  Python Dev
                 </button>
                 <button
                   onClick={() => loadSampleJob(1)}
-                  className="bg-green-100 hover:bg-green-200 text-green-800 px-3 py-1 rounded-full text-sm transition-colors"
+                  className="bg-green-100 hover:bg-green-200 text-green-800 px-2 md:px-3 py-1 rounded-full text-xs md:text-sm transition-colors"
                 >
-                  JavaScript Developer
+                  JS Dev
                 </button>
                 <button
                   onClick={() => loadSampleJob(2)}
-                  className="bg-green-100 hover:bg-green-200 text-green-800 px-3 py-1 rounded-full text-sm transition-colors"
+                  className="bg-green-100 hover:bg-green-200 text-green-800 px-2 md:px-3 py-1 rounded-full text-xs md:text-sm transition-colors"
                 >
                   ML Engineer
                 </button>
@@ -264,7 +264,7 @@ function App() {
             </div>
             <button
               onClick={clearAll}
-              className="mt-3 bg-gray-100 hover:bg-gray-200 text-gray-700 px-4 py-1 rounded-full text-sm transition-colors"
+              className="mt-2 md:mt-3 bg-gray-100 hover:bg-gray-200 text-gray-700 px-3 md:px-4 py-1 rounded-full text-xs md:text-sm transition-colors"
             >
               Clear All
             </button>
@@ -407,24 +407,26 @@ function App() {
                   Match Report
                 </h2>
               </div>
-              <div className="flex gap-2">
+              <div className="flex flex-col sm:flex-row gap-2">
                 <button
                   onClick={exportReport}
-                  className="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-lg text-sm font-medium transition-colors flex items-center"
+                  className="bg-blue-600 hover:bg-blue-700 text-white px-3 md:px-4 py-2 rounded-lg text-xs md:text-sm font-medium transition-colors flex items-center justify-center"
                 >
-                  <svg className="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <svg className="w-3 h-3 md:w-4 md:h-4 mr-1 md:mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
                   </svg>
-                  Export JSON
+                  <span className="hidden sm:inline">Export JSON</span>
+                  <span className="sm:hidden">Export</span>
                 </button>
                 <button
                   onClick={() => copyToClipboard(`Match Score: ${matchReport.match_score.toFixed(1)}%\nMatching Skills: ${matchReport.matching_skills.join(', ')}\nMissing Skills: ${matchReport.missing_skills.join(', ')}`)}
-                  className="bg-gray-600 hover:bg-gray-700 text-white px-4 py-2 rounded-lg text-sm font-medium transition-colors flex items-center"
+                  className="bg-gray-600 hover:bg-gray-700 text-white px-3 md:px-4 py-2 rounded-lg text-xs md:text-sm font-medium transition-colors flex items-center justify-center"
                 >
-                  <svg className="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <svg className="w-3 h-3 md:w-4 md:h-4 mr-1 md:mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z" />
                   </svg>
-                  Copy Summary
+                  <span className="hidden sm:inline">Copy Summary</span>
+                  <span className="sm:hidden">Copy</span>
                 </button>
               </div>
             </div>
