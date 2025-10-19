@@ -181,6 +181,38 @@ function App() {
     setSuccess('');
   };
 
+  const exportReport = () => {
+    if (!matchReport) return;
+
+    const reportData = {
+      timestamp: new Date().toISOString(),
+      github_username: githubUsername,
+      job_description: jobDescription,
+      match_score: matchReport.match_score,
+      matching_skills: matchReport.matching_skills,
+      missing_skills: matchReport.missing_skills,
+      candidate_skills: matchReport.candidate_skills,
+      job_skills: matchReport.job_skills,
+      repo_insights: matchReport.repo_insights
+    };
+
+    const dataStr = JSON.stringify(reportData, null, 2);
+    const dataBlob = new Blob([dataStr], { type: 'application/json' });
+    const url = URL.createObjectURL(dataBlob);
+    const link = document.createElement('a');
+    link.href = url;
+    link.download = `match-report-${githubUsername}-${Date.now()}.json`;
+    link.click();
+    URL.revokeObjectURL(url);
+  };
+
+  const copyToClipboard = (text) => {
+    navigator.clipboard.writeText(text).then(() => {
+      setSuccess('Copied to clipboard!');
+      setTimeout(() => setSuccess(''), 2000);
+    });
+  };
+
   return (
     <div className="min-h-screen bg-gray-50">
       <div className="container mx-auto px-4 py-8">
@@ -364,15 +396,37 @@ function App() {
         {/* Match Report */}
         {matchReport && (
           <div className="bg-white rounded-lg shadow-lg p-6 border border-gray-100 animate-fadeIn">
-            <div className="flex items-center mb-6">
-              <div className="bg-green-100 p-2 rounded-lg mr-3">
-                <svg className="w-6 h-6 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
-                </svg>
+            <div className="flex items-center justify-between mb-6">
+              <div className="flex items-center">
+                <div className="bg-green-100 p-2 rounded-lg mr-3">
+                  <svg className="w-6 h-6 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
+                  </svg>
+                </div>
+                <h2 className="text-2xl font-semibold text-gray-800">
+                  Match Report
+                </h2>
               </div>
-              <h2 className="text-2xl font-semibold text-gray-800">
-                Match Report
-              </h2>
+              <div className="flex gap-2">
+                <button
+                  onClick={exportReport}
+                  className="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-lg text-sm font-medium transition-colors flex items-center"
+                >
+                  <svg className="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
+                  </svg>
+                  Export JSON
+                </button>
+                <button
+                  onClick={() => copyToClipboard(`Match Score: ${matchReport.match_score.toFixed(1)}%\nMatching Skills: ${matchReport.matching_skills.join(', ')}\nMissing Skills: ${matchReport.missing_skills.join(', ')}`)}
+                  className="bg-gray-600 hover:bg-gray-700 text-white px-4 py-2 rounded-lg text-sm font-medium transition-colors flex items-center"
+                >
+                  <svg className="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z" />
+                  </svg>
+                  Copy Summary
+                </button>
+              </div>
             </div>
             
             {/* Match Score */}
@@ -433,24 +487,30 @@ function App() {
                 <h3 className="text-lg font-semibold text-gray-700 mb-4">
                   Repository Insights
                 </h3>
-                <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-6">
-                  <div className="bg-blue-50 p-4 rounded-lg">
+                <div className="grid grid-cols-1 md:grid-cols-4 gap-4 mb-6">
+                  <div className="bg-blue-50 p-4 rounded-lg hover:bg-blue-100 transition-colors">
                     <div className="text-2xl font-bold text-blue-600">
                       {matchReport.repo_insights.repo_count}
                     </div>
                     <div className="text-sm text-blue-800">Repositories</div>
                   </div>
-                  <div className="bg-yellow-50 p-4 rounded-lg">
+                  <div className="bg-yellow-50 p-4 rounded-lg hover:bg-yellow-100 transition-colors">
                     <div className="text-2xl font-bold text-yellow-600">
                       {matchReport.repo_insights.total_stars}
                     </div>
                     <div className="text-sm text-yellow-800">Total Stars</div>
                   </div>
-                  <div className="bg-purple-50 p-4 rounded-lg">
+                  <div className="bg-purple-50 p-4 rounded-lg hover:bg-purple-100 transition-colors">
                     <div className="text-2xl font-bold text-purple-600">
                       {matchReport.repo_insights.total_forks}
                     </div>
                     <div className="text-sm text-purple-800">Total Forks</div>
+                  </div>
+                  <div className="bg-green-50 p-4 rounded-lg hover:bg-green-100 transition-colors">
+                    <div className="text-2xl font-bold text-green-600">
+                      {Math.round(matchReport.repo_insights.total_size / 1024)} MB
+                    </div>
+                    <div className="text-sm text-green-800">Total Size</div>
                   </div>
                 </div>
 
