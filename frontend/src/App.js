@@ -17,6 +17,7 @@ function App() {
   const [matchReport, setMatchReport] = useState(null);
   const [error, setError] = useState('');
   const [success, setSuccess] = useState('');
+  const [retryCount, setRetryCount] = useState(0);
 
   // Sample data for quick start
   const sampleJobDescriptions = [
@@ -57,6 +58,9 @@ function App() {
         setError(`GitHub user '${githubUsername}' not found. Please check the username and try again.`);
       } else if (err.response?.status === 403) {
         setError('GitHub API rate limit exceeded. Please try again later.');
+      } else if (err.code === 'NETWORK_ERROR' || !navigator.onLine) {
+        setError('Network error. Please check your internet connection and try again.');
+        setRetryCount(prev => prev + 1);
       } else {
         setError(`Error analyzing candidate: ${err.response?.data?.detail || err.message}`);
       }
@@ -296,7 +300,23 @@ function App() {
 
         {error && (
           <div className="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded mb-6">
-            {error}
+            <div className="flex items-center justify-between">
+              <span>{error}</span>
+              {error.includes('Network error') && retryCount > 0 && (
+                <button
+                  onClick={() => {
+                    setError('');
+                    setRetryCount(0);
+                    if (githubUsername.trim() && jobDescription.trim()) {
+                      handleAnalyzeBoth();
+                    }
+                  }}
+                  className="ml-4 bg-red-600 hover:bg-red-700 text-white px-3 py-1 rounded text-sm transition-colors"
+                >
+                  Retry
+                </button>
+              )}
+            </div>
           </div>
         )}
 
