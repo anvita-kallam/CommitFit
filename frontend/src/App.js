@@ -18,6 +18,17 @@ function App() {
   const [error, setError] = useState('');
   const [success, setSuccess] = useState('');
 
+  // Sample data for quick start
+  const sampleJobDescriptions = [
+    "We are looking for a Senior Python Developer with experience in Django, FastAPI, and PostgreSQL. Must have knowledge of Docker, AWS, and CI/CD pipelines. Experience with React and JavaScript is a plus.",
+    "Seeking a Full-Stack JavaScript Developer proficient in Node.js, Express, React, and MongoDB. Knowledge of TypeScript, GraphQL, and cloud platforms (AWS/Azure) required.",
+    "Looking for a Machine Learning Engineer with Python, TensorFlow, PyTorch, and scikit-learn experience. Must have experience with data processing using Pandas and NumPy."
+  ];
+
+  const popularGitHubUsers = [
+    "torvalds", "octocat", "gaearon", "sindresorhus", "addyosmani"
+  ];
+
   const analyzeCandidate = async () => {
     if (!githubUsername.trim()) {
       setError('Please enter a GitHub username');
@@ -150,6 +161,26 @@ function App() {
     return 'bg-red-500';
   };
 
+  const loadSampleJob = (index) => {
+    setJobDescription(sampleJobDescriptions[index]);
+    setError('');
+    setSuccess('');
+  };
+
+  const loadSampleUser = (username) => {
+    setGithubUsername(username);
+    setError('');
+    setSuccess('');
+  };
+
+  const clearAll = () => {
+    setGithubUsername('');
+    setJobDescription('');
+    setMatchReport(null);
+    setError('');
+    setSuccess('');
+  };
+
   return (
     <div className="min-h-screen bg-gray-50">
       <div className="container mx-auto px-4 py-8">
@@ -157,9 +188,55 @@ function App() {
           <h1 className="text-4xl font-bold text-gray-900 mb-2">
             GitHub Candidate Match MVP
           </h1>
-          <p className="text-gray-600">
+          <p className="text-gray-600 mb-4">
             Analyze GitHub profiles and match them with job requirements
           </p>
+          
+          {/* Quick Start Section */}
+          <div className="bg-blue-50 border border-blue-200 rounded-lg p-4 mb-6">
+            <h3 className="text-lg font-semibold text-blue-800 mb-3">🚀 Quick Start</h3>
+            <div className="flex flex-wrap gap-2 justify-center">
+              <span className="text-sm text-blue-700 font-medium">Try these popular users:</span>
+              {popularGitHubUsers.map((user) => (
+                <button
+                  key={user}
+                  onClick={() => loadSampleUser(user)}
+                  className="bg-blue-100 hover:bg-blue-200 text-blue-800 px-3 py-1 rounded-full text-sm transition-colors"
+                >
+                  @{user}
+                </button>
+              ))}
+            </div>
+            <div className="mt-3">
+              <span className="text-sm text-blue-700 font-medium">Or sample job descriptions:</span>
+              <div className="flex flex-wrap gap-2 justify-center mt-2">
+                <button
+                  onClick={() => loadSampleJob(0)}
+                  className="bg-green-100 hover:bg-green-200 text-green-800 px-3 py-1 rounded-full text-sm transition-colors"
+                >
+                  Python Developer
+                </button>
+                <button
+                  onClick={() => loadSampleJob(1)}
+                  className="bg-green-100 hover:bg-green-200 text-green-800 px-3 py-1 rounded-full text-sm transition-colors"
+                >
+                  JavaScript Developer
+                </button>
+                <button
+                  onClick={() => loadSampleJob(2)}
+                  className="bg-green-100 hover:bg-green-200 text-green-800 px-3 py-1 rounded-full text-sm transition-colors"
+                >
+                  ML Engineer
+                </button>
+              </div>
+            </div>
+            <button
+              onClick={clearAll}
+              className="mt-3 bg-gray-100 hover:bg-gray-200 text-gray-700 px-4 py-1 rounded-full text-sm transition-colors"
+            >
+              Clear All
+            </button>
+          </div>
         </header>
 
         {error && (
