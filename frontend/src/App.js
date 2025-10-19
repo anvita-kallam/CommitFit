@@ -24,18 +24,31 @@ function App() {
       return;
     }
 
+    // Basic validation for GitHub username format
+    const usernameRegex = /^[a-zA-Z0-9]([a-zA-Z0-9]|-(?=[a-zA-Z0-9])){0,38}$/;
+    if (!usernameRegex.test(githubUsername.trim())) {
+      setError('Please enter a valid GitHub username (alphanumeric characters, hyphens, max 39 characters)');
+      return;
+    }
+
     setCandidateLoading(true);
     setError('');
     setSuccess('');
     
     try {
       const response = await axios.post(`${API_BASE_URL}/analyze_candidate`, {
-        github_username: githubUsername
+        github_username: githubUsername.trim()
       });
       console.log('Candidate analysis:', response.data);
       setSuccess(`✅ Successfully analyzed ${githubUsername}'s GitHub profile! Found ${response.data.candidate_skills?.length || 0} skills.`);
     } catch (err) {
-      setError(`Error analyzing candidate: ${err.response?.data?.detail || err.message}`);
+      if (err.response?.status === 404) {
+        setError(`GitHub user '${githubUsername}' not found. Please check the username and try again.`);
+      } else if (err.response?.status === 403) {
+        setError('GitHub API rate limit exceeded. Please try again later.');
+      } else {
+        setError(`Error analyzing candidate: ${err.response?.data?.detail || err.message}`);
+      }
     } finally {
       setCandidateLoading(false);
     }
@@ -47,18 +60,35 @@ function App() {
       return;
     }
 
+    // Basic validation for job description length
+    if (jobDescription.trim().length < 10) {
+      setError('Job description should be at least 10 characters long');
+      return;
+    }
+
+    if (jobDescription.trim().length > 5000) {
+      setError('Job description is too long. Please keep it under 5000 characters');
+      return;
+    }
+
     setJobLoading(true);
     setError('');
     setSuccess('');
     
     try {
       const response = await axios.post(`${API_BASE_URL}/analyze_job`, {
-        job_description: jobDescription
+        job_description: jobDescription.trim()
       });
       console.log('Job analysis:', response.data);
       setSuccess(`✅ Successfully analyzed job description! Found ${response.data.job_skills?.length || 0} required skills.`);
     } catch (err) {
-      setError(`Error analyzing job: ${err.response?.data?.detail || err.message}`);
+      if (err.response?.status === 400) {
+        setError('Invalid job description format. Please check your input and try again.');
+      } else if (err.response?.status === 500) {
+        setError('Server error while processing job description. Please try again.');
+      } else {
+        setError(`Error analyzing job: ${err.response?.data?.detail || err.message}`);
+      }
     } finally {
       setJobLoading(false);
     }
@@ -199,7 +229,14 @@ function App() {
                   rows={6}
                   className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-primary-500"
                   placeholder="Paste job description here..."
+                  maxLength={5000}
                 />
+                <div className="flex justify-between text-xs text-gray-500 mt-1">
+                  <span>Minimum 10 characters</span>
+                  <span className={jobDescription.length > 5000 ? 'text-red-500' : ''}>
+                    {jobDescription.length}/5000
+                  </span>
+                </div>
               </div>
               <button
                 onClick={analyzeJob}
