@@ -57,8 +57,8 @@ function App() {
     } catch (err) {
       if (err.response?.status === 404) {
         setError(`GitHub user '${githubUsername}' not found. Please check the username and try again.`);
-      } else if (err.response?.status === 403) {
-        setError('GitHub API rate limit exceeded. Please try again later.');
+      } else if (err.response?.status === 403 || err.response?.status === 429) {
+        setError('GitHub API rate limit exceeded. Please try again in a few minutes. For higher limits, consider using GitHub authentication.');
       } else if (err.code === 'NETWORK_ERROR' || !navigator.onLine) {
         setError('Network error. Please check your internet connection and try again.');
         setRetryCount(prev => prev + 1);

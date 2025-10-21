@@ -50,6 +50,13 @@ def fetch_user_repos(username: str) -> List[Dict]:
     
     try:
         response = requests.get(url, headers=headers)
+        if response.status_code == 403:
+            error_data = response.json()
+            if "rate limit" in error_data.get("message", "").lower():
+                raise HTTPException(
+                    status_code=429, 
+                    detail="GitHub API rate limit exceeded. Please try again in a few minutes or use GitHub authentication for higher limits."
+                )
         response.raise_for_status()
         return response.json()
     except requests.exceptions.RequestException as e:
