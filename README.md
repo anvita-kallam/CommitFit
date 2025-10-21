@@ -1,4 +1,4 @@
-# GitHub Candidate Match MVP
+# CommitFit
 
 A full-stack application that analyzes GitHub profiles and matches them with job requirements to help recruiters find the best candidates.
 

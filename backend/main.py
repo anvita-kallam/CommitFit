@@ -9,7 +9,7 @@ import spacy
 from collections import Counter
 import json
 
-app = FastAPI(title="GitHub Candidate Match API", version="1.0.0")
+app = FastAPI(title="CommitFit API", version="1.0.0")
 
 # CORS middleware for frontend communication
 app.add_middleware(
@@ -219,7 +219,7 @@ async def get_match_report():
 
 @app.get("/")
 async def root():
-    return {"message": "GitHub Candidate Match API is running!"}
+    return {"message": "CommitFit API is running!"}
 
 if __name__ == "__main__":
     import uvicorn
