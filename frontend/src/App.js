@@ -6,7 +6,7 @@ import { Doughnut, Bar } from 'react-chartjs-2';
 // Register Chart.js components
 ChartJS.register(ArcElement, Tooltip, Legend, BarElement, CategoryScale, LinearScale);
 
-const API_BASE_URL = 'http://localhost:8000';
+const API_BASE_URL = 'http://localhost:8001';
 
 function App() {
   const [githubUsername, setGithubUsername] = useState('');
