@@ -30,6 +30,7 @@ except OSError:
 # Pydantic models
 class GitHubAnalysisRequest(BaseModel):
     github_username: str
+    github_token: Optional[str] = None
 
 class JobAnalysisRequest(BaseModel):
     job_description: str
@@ -43,10 +44,14 @@ class MatchReport(BaseModel):
     repo_insights: Dict
 
 # GitHub API functions
-def fetch_user_repos(username: str) -> List[Dict]:
+def fetch_user_repos(username: str, github_token: Optional[str] = None) -> List[Dict]:
     """Fetch public repositories for a GitHub user"""
     url = f"https://api.github.com/users/{username}/repos"
     headers = {"Accept": "application/vnd.github.v3+json"}
+    
+    # Add authentication if token is provided
+    if github_token:
+        headers["Authorization"] = f"token {github_token}"
     
     try:
         response = requests.get(url, headers=headers)
@@ -62,18 +67,22 @@ def fetch_user_repos(username: str) -> List[Dict]:
     except requests.exceptions.RequestException as e:
         raise HTTPException(status_code=400, detail=f"GitHub API error: {str(e)}")
 
-def analyze_repo_languages(repos: List[Dict]) -> Dict:
+def analyze_repo_languages(repos: List[Dict], github_token: Optional[str] = None) -> Dict:
     """Analyze programming languages from repositories"""
     language_stats = Counter()
     total_stars = 0
     total_forks = 0
     total_size = 0
     
+    headers = {}
+    if github_token:
+        headers["Authorization"] = f"token {github_token}"
+    
     for repo in repos:
         # Get language data for each repo
         if repo.get('languages_url'):
             try:
-                lang_response = requests.get(repo['languages_url'])
+                lang_response = requests.get(repo['languages_url'], headers=headers)
                 if lang_response.status_code == 200:
                     repo_languages = lang_response.json()
                     for lang, bytes_count in repo_languages.items():
@@ -149,8 +158,8 @@ job_data = {}
 async def analyze_candidate(request: GitHubAnalysisRequest):
     """Analyze GitHub candidate repositories"""
     try:
-        repos = fetch_user_repos(request.github_username)
-        repo_insights = analyze_repo_languages(repos)
+        repos = fetch_user_repos(request.github_username, request.github_token)
+        repo_insights = analyze_repo_languages(repos, request.github_token)
         
         # Extract skills from repository languages and names
         candidate_skills = list(repo_insights['languages'].keys())

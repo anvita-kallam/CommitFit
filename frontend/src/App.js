@@ -10,6 +10,7 @@ const API_BASE_URL = 'http://localhost:8001';
 
 function App() {
   const [githubUsername, setGithubUsername] = useState('');
+  const [githubToken, setGithubToken] = useState('');
   const [jobDescription, setJobDescription] = useState('');
   const [loading, setLoading] = useState(false);
   const [candidateLoading, setCandidateLoading] = useState(false);
@@ -50,7 +51,8 @@ function App() {
     
     try {
       const response = await axios.post(`${API_BASE_URL}/analyze_candidate`, {
-        github_username: githubUsername.trim()
+        github_username: githubUsername.trim(),
+        github_token: githubToken.trim() || null
       });
       console.log('Candidate analysis:', response.data);
       setSuccess(`✅ Successfully analyzed ${githubUsername}'s GitHub profile! Found ${response.data.candidate_skills?.length || 0} skills.`);
@@ -180,6 +182,7 @@ function App() {
 
   const clearAll = useCallback(() => {
     setGithubUsername('');
+    setGithubToken('');
     setJobDescription('');
     setMatchReport(null);
     setError('');
@@ -416,6 +419,23 @@ function App() {
                   aria-label="GitHub username"
                   autoComplete="username"
                 />
+              </div>
+              <div>
+                <label className="block text-sm font-medium text-gray-700 mb-2">
+                  GitHub Personal Access Token (Optional)
+                </label>
+                <input
+                  type="password"
+                  value={githubToken}
+                  onChange={(e) => setGithubToken(e.target.value)}
+                  className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-primary-500"
+                  placeholder="Enter GitHub token for higher rate limits"
+                  aria-label="GitHub personal access token"
+                  autoComplete="off"
+                />
+                <p className="text-xs text-gray-500 mt-1">
+                  Get your token from GitHub Settings → Developer settings → Personal access tokens
+                </p>
               </div>
               <button
                 onClick={analyzeCandidate}
