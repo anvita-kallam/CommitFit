@@ -95,7 +95,8 @@ function App() {
     
     try {
       const response = await axios.post(`${API_BASE_URL}/analyze_job`, {
-        job_description: jobDescription.trim()
+        job_description: jobDescription.trim(),
+        github_token: githubToken.trim() || null
       });
       console.log('Job analysis:', response.data);
       setSuccess(`✅ Successfully analyzed job description! Found ${response.data.job_skills?.length || 0} required skills.`);

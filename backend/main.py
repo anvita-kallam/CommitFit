@@ -34,6 +34,7 @@ class GitHubAnalysisRequest(BaseModel):
 
 class JobAnalysisRequest(BaseModel):
     job_description: str
+    github_token: Optional[str] = None
 
 class MatchReport(BaseModel):
     match_score: float
@@ -193,7 +194,8 @@ async def analyze_job(request: JobAnalysisRequest):
         
         job_data['current_job'] = {
             'skills': job_skills,
-            'description': request.job_description
+            'description': request.job_description,
+            'github_token': request.github_token
         }
         
         return {
