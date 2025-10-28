@@ -6,7 +6,7 @@ import { Doughnut, Bar } from 'react-chartjs-2';
 // Register Chart.js components
 ChartJS.register(ArcElement, Tooltip, Legend, BarElement, CategoryScale, LinearScale);
 
-const API_BASE_URL = 'http://localhost:8001';
+const API_BASE_URL = 'http://localhost:8000';
 
 function App() {
   const [githubUsername, setGithubUsername] = useState('');
@@ -139,17 +139,20 @@ function App() {
     try {
       // Analyze candidate
       await axios.post(`${API_BASE_URL}/analyze_candidate`, {
-        github_username: githubUsername
+        github_username: githubUsername.trim(),
+        github_token: githubToken.trim() || null
       });
       
       // Analyze job
       await axios.post(`${API_BASE_URL}/analyze_job`, {
-        job_description: jobDescription
+        job_description: jobDescription.trim(),
+        github_token: githubToken.trim() || null
       });
       
       // Get match report
       const response = await axios.get(`${API_BASE_URL}/match_report`);
       setMatchReport(response.data);
+      setSuccess(`✅ Match analysis complete! Match score: ${response.data.match_score.toFixed(1)}%`);
     } catch (err) {
       setError(`Error: ${err.response?.data?.detail || err.message}`);
     } finally {
