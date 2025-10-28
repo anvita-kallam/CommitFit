@@ -159,7 +159,9 @@ job_data = {}
 async def analyze_candidate(request: GitHubAnalysisRequest):
     """Analyze GitHub candidate repositories"""
     try:
+        print(f"🔍 Analyzing candidate: {request.github_username}")
         repos = fetch_user_repos(request.github_username, request.github_token)
+        print(f"📦 Found {len(repos)} repositories for {request.github_username}")
         repo_insights = analyze_repo_languages(repos, request.github_token)
         
         # Extract skills from repository languages and names
@@ -177,13 +179,17 @@ async def analyze_candidate(request: GitHubAnalysisRequest):
             'skills': candidate_skills,
             'repo_insights': repo_insights
         }
+        print(f"✅ Stored data for {request.github_username} with {len(candidate_skills)} skills")
+        print(f"📊 Current candidates in memory: {list(candidate_data.keys())}")
         
         return {
             "status": "success",
             "candidate_skills": candidate_skills,
-            "repo_insights": repo_insights
+            "repo_insights": repo_insights,
+            "username": request.github_username
         }
     except Exception as e:
+        print(f"❌ Error analyzing {request.github_username}: {str(e)}")
         raise HTTPException(status_code=500, detail=str(e))
 
 @app.post("/analyze_job")
@@ -208,17 +214,27 @@ async def analyze_job(request: JobAnalysisRequest):
 @app.get("/match_report")
 async def get_match_report():
     """Get match report between candidate and job"""
+    print(f"📊 Match report requested")
+    print(f"📊 Candidates in memory: {list(candidate_data.keys())}")
+    print(f"📊 Job data exists: {bool(job_data)}")
+    
     if not candidate_data or not job_data:
         raise HTTPException(status_code=400, detail="Please analyze both candidate and job first")
     
     # Get the most recent candidate and job data
-    latest_candidate = list(candidate_data.values())[-1]
+    latest_candidate_username = list(candidate_data.keys())[-1]
+    latest_candidate = candidate_data[latest_candidate_username]
     current_job = job_data['current_job']
+    
+    print(f"📊 Using candidate: {latest_candidate_username}")
+    print(f"📊 Candidate skills: {latest_candidate['skills'][:5]}...")  # First 5 skills
+    print(f"📊 Job skills: {current_job['skills'][:5]}...")  # First 5 skills
     
     candidate_skills = latest_candidate['skills']
     job_skills = current_job['skills']
     
     match_score = calculate_match_score(candidate_skills, job_skills)
+    print(f"📊 Match score calculated: {match_score}%")
     
     candidate_skills_lower = [skill.lower() for skill in candidate_skills]
     job_skills_lower = [skill.lower() for skill in job_skills]
