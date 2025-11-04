@@ -39,18 +39,18 @@ interface MatchReportProps {
 
 export function MatchReport({ analysis }: MatchReportProps) {
   const getScoreColor = (score: number) => {
-    if (score >= 80) return 'rgba(50, 30, 90, 1)';
-    if (score >= 60) return 'rgba(80, 50, 120, 1)';
-    return 'rgba(120, 70, 150, 1)';
+    if (score >= 80) return 'rgba(70, 130, 180, 1)';
+    if (score >= 60) return 'rgba(100, 149, 237, 1)';
+    return 'rgba(135, 206, 250, 1)';
   };
 
-  // Chart colors for consistency
+  // Chart colors for consistency - blue theme
   const chartColors = [
-    'rgba(180, 160, 220, 0.8)',
-    'rgba(200, 180, 240, 0.8)',
-    'rgba(220, 200, 250, 0.8)',
-    'rgba(240, 220, 250, 0.8)',
-    'rgba(200, 200, 240, 0.8)',
+    'rgba(70, 130, 180, 0.8)',
+    'rgba(100, 149, 237, 0.8)',
+    'rgba(135, 206, 250, 0.8)',
+    'rgba(173, 216, 230, 0.8)',
+    'rgba(176, 224, 230, 0.8)',
   ];
 
   // Prepare language data for pie chart
@@ -68,22 +68,22 @@ export function MatchReport({ analysis }: MatchReportProps) {
     {
       name: 'Repos',
       value: analysis.repo_insights.repo_count,
-      color: 'rgba(180, 160, 220, 0.8)'
+      color: 'rgba(70, 130, 180, 0.8)'
     },
     {
       name: 'Stars',
       value: analysis.repo_insights.total_stars,
-      color: 'rgba(200, 180, 240, 0.8)'
+      color: 'rgba(100, 149, 237, 0.8)'
     },
     {
       name: 'Forks',
       value: analysis.repo_insights.total_forks,
-      color: 'rgba(220, 200, 250, 0.8)'
+      color: 'rgba(135, 206, 250, 0.8)'
     },
     {
       name: 'Languages',
       value: Object.keys(analysis.repo_insights.languages).length,
-      color: 'rgba(240, 220, 250, 0.8)'
+      color: 'rgba(173, 216, 230, 0.8)'
     }
   ];
 
@@ -133,14 +133,14 @@ ${analysis.missing_skills.length > 0 ? analysis.missing_skills.map(skill => `- C
       <Card 
         className="p-6 shadow-xl border backdrop-blur-lg" 
         style={{ 
-          background: 'rgba(255, 255, 255, 0.3)',
-          borderColor: 'rgba(255, 255, 255, 0.4)' 
+          background: 'rgba(255, 255, 255, 0.4)',
+          borderColor: 'rgba(255, 255, 255, 0.5)' 
         }}
       >
         <div className="flex items-center justify-between">
           <div className="flex items-center gap-3">
-            <CheckCircle2 className="w-6 h-6" style={{ color: 'rgba(180, 160, 220, 1)' }} />
-            <h2 style={{ color: 'rgba(50, 30, 90, 1)' }}>Match Report</h2>
+            <CheckCircle2 className="w-6 h-6" style={{ color: 'rgba(70, 130, 180, 1)' }} />
+            <h2 style={{ color: 'rgba(0, 31, 63, 1)' }}>Match Report</h2>
           </div>
           <div className="flex gap-2">
             <Button
@@ -149,9 +149,9 @@ ${analysis.missing_skills.length > 0 ? analysis.missing_skills.map(skill => `- C
               onClick={handleExportJSON}
               className="gap-2 backdrop-blur-md border hover:shadow-lg transition-all"
               style={{ 
-                background: 'rgba(255, 255, 255, 0.4)',
-                borderColor: 'rgba(180, 160, 220, 0.5)', 
-                color: 'rgba(50, 30, 90, 1)' 
+                background: 'rgba(255, 255, 255, 0.5)',
+                borderColor: 'rgba(70, 130, 180, 0.5)', 
+                color: 'rgba(0, 31, 63, 1)' 
               }}
             >
               <Download className="w-4 h-4" />
@@ -163,9 +163,9 @@ ${analysis.missing_skills.length > 0 ? analysis.missing_skills.map(skill => `- C
               onClick={handleCopySummary}
               className="gap-2 backdrop-blur-md border hover:shadow-lg transition-all"
               style={{ 
-                background: 'rgba(255, 255, 255, 0.4)',
-                borderColor: 'rgba(180, 160, 220, 0.5)', 
-                color: 'rgba(50, 30, 90, 1)' 
+                background: 'rgba(255, 255, 255, 0.5)',
+                borderColor: 'rgba(70, 130, 180, 0.5)', 
+                color: 'rgba(0, 31, 63, 1)' 
               }}
             >
               <Copy className="w-4 h-4" />
@@ -179,22 +179,22 @@ ${analysis.missing_skills.length > 0 ? analysis.missing_skills.map(skill => `- C
       <Card 
         className="p-6 shadow-xl border backdrop-blur-lg" 
         style={{ 
-          background: 'rgba(255, 255, 255, 0.3)',
-          borderColor: 'rgba(255, 255, 255, 0.4)' 
+          background: 'rgba(255, 255, 255, 0.4)',
+          borderColor: 'rgba(255, 255, 255, 0.5)' 
         }}
       >
         <div className="flex items-start gap-6">
-          <div className="w-24 h-24 rounded-full border-4 border-white/50 shadow-lg flex items-center justify-center" style={{ background: 'rgba(180, 160, 220, 0.3)' }}>
-            <Github className="w-12 h-12" style={{ color: 'rgba(50, 30, 90, 1)' }} />
+          <div className="w-24 h-24 rounded-full border-4 border-white/50 shadow-lg flex items-center justify-center" style={{ background: 'rgba(70, 130, 180, 0.3)' }}>
+            <Github className="w-12 h-12" style={{ color: 'rgba(0, 31, 63, 1)' }} />
           </div>
           <div className="flex-1">
             <div className="flex items-center gap-3 mb-2">
-              <h3 style={{ color: 'rgba(50, 30, 90, 1)' }}>{analysis.username}</h3>
+              <h3 style={{ color: 'rgba(0, 31, 63, 1)' }}>{analysis.username}</h3>
             </div>
-            <p className="mb-4" style={{ color: 'rgba(60, 40, 100, 0.95)' }}>
+            <p className="mb-4" style={{ color: 'rgba(0, 51, 102, 0.95)' }}>
               GitHub developer with {analysis.repo_insights.repo_count} public repositories
             </p>
-            <div className="flex flex-wrap gap-4 text-sm" style={{ color: 'rgba(60, 40, 100, 0.95)' }}>
+            <div className="flex flex-wrap gap-4 text-sm" style={{ color: 'rgba(0, 51, 102, 0.95)' }}>
               <div className="flex items-center gap-1">
                 <Code className="w-4 h-4" />
                 {analysis.repo_insights.repo_count} repositories
@@ -213,7 +213,7 @@ ${analysis.missing_skills.length > 0 ? analysis.missing_skills.map(skill => `- C
             <div className="text-5xl mb-2" style={{ color: getScoreColor(analysis.match_score) }}>
               {analysis.match_score.toFixed(1)}%
             </div>
-            <div className="text-sm" style={{ color: 'rgba(60, 40, 100, 0.95)' }}>
+            <div className="text-sm" style={{ color: 'rgba(0, 51, 102, 0.95)' }}>
               Match Score
             </div>
           </div>
@@ -224,17 +224,17 @@ ${analysis.missing_skills.length > 0 ? analysis.missing_skills.map(skill => `- C
       <Card 
         className="p-6 shadow-xl border backdrop-blur-lg" 
         style={{ 
-          background: 'rgba(255, 255, 255, 0.3)',
-          borderColor: 'rgba(255, 255, 255, 0.4)' 
+          background: 'rgba(255, 255, 255, 0.4)',
+          borderColor: 'rgba(255, 255, 255, 0.5)' 
         }}
       >
-        <h3 className="mb-4 flex items-center gap-2" style={{ color: 'rgba(50, 30, 90, 1)' }}>
+        <h3 className="mb-4 flex items-center gap-2" style={{ color: 'rgba(0, 31, 63, 1)' }}>
           <Code className="w-5 h-5" />
           Technology Stack Match
         </h3>
         <div className="mb-4">
           <div className="flex items-center justify-between mb-2">
-            <span style={{ color: 'rgba(60, 40, 100, 0.95)' }}>Match Percentage</span>
+            <span style={{ color: 'rgba(0, 51, 102, 0.95)' }}>Match Percentage</span>
             <span style={{ color: getScoreColor(analysis.match_score) }}>
               {analysis.match_score.toFixed(1)}%
             </span>
@@ -243,7 +243,7 @@ ${analysis.missing_skills.length > 0 ? analysis.missing_skills.map(skill => `- C
         </div>
         <div className="grid md:grid-cols-2 gap-4">
           <div>
-            <p className="text-sm mb-2" style={{ color: 'rgba(60, 40, 100, 0.95)' }}>Required Technologies:</p>
+              <p className="text-sm mb-2" style={{ color: 'rgba(0, 51, 102, 0.95)' }}>Required Technologies:</p>
             <div className="flex flex-wrap gap-2">
               {analysis.job_skills.map((skill: string) => {
                 const isFound = analysis.matching_skills.includes(skill);
@@ -253,13 +253,13 @@ ${analysis.missing_skills.length > 0 ? analysis.missing_skills.map(skill => `- C
                     variant={isFound ? 'default' : 'outline'}
                     className="backdrop-blur-sm"
                     style={isFound ? { 
-                      background: 'rgba(180, 200, 230, 0.5)', 
-                      color: 'rgba(50, 30, 90, 1)', 
+                      background: 'rgba(70, 130, 180, 0.6)', 
+                      color: 'white', 
                       borderColor: 'rgba(255, 255, 255, 0.4)' 
                     } : { 
-                      background: 'rgba(255, 255, 255, 0.3)',
-                      borderColor: 'rgba(240, 180, 200, 0.6)', 
-                      color: 'rgba(50, 30, 90, 1)' 
+                      background: 'rgba(255, 255, 255, 0.4)',
+                      borderColor: 'rgba(135, 206, 250, 0.6)', 
+                      color: 'rgba(0, 31, 63, 1)' 
                     }}
                   >
                     {skill}
@@ -270,7 +270,7 @@ ${analysis.missing_skills.length > 0 ? analysis.missing_skills.map(skill => `- C
             </div>
           </div>
           <div>
-            <p className="text-sm mb-2" style={{ color: 'rgba(60, 40, 100, 0.95)' }}>Additional Technologies:</p>
+              <p className="text-sm mb-2" style={{ color: 'rgba(0, 51, 102, 0.95)' }}>Additional Technologies:</p>
             <div className="flex flex-wrap gap-2">
               {analysis.candidate_skills
                 .filter((skill: string) => !analysis.job_skills.includes(skill))
@@ -280,8 +280,8 @@ ${analysis.missing_skills.length > 0 ? analysis.missing_skills.map(skill => `- C
                     variant="secondary" 
                     className="backdrop-blur-sm"
                     style={{ 
-                      background: 'rgba(240, 200, 220, 0.4)', 
-                      color: 'rgba(50, 30, 90, 1)', 
+                      background: 'rgba(255, 255, 255, 0.5)', 
+                      color: 'rgba(0, 31, 63, 1)', 
                       borderColor: 'rgba(255, 255, 255, 0.4)' 
                     }}
                   >
@@ -297,8 +297,8 @@ ${analysis.missing_skills.length > 0 ? analysis.missing_skills.map(skill => `- C
       <Card 
         className="p-6 shadow-xl border backdrop-blur-lg" 
         style={{ 
-          background: 'rgba(255, 255, 255, 0.3)',
-          borderColor: 'rgba(255, 255, 255, 0.4)' 
+          background: 'rgba(255, 255, 255, 0.4)',
+          borderColor: 'rgba(255, 255, 255, 0.5)' 
         }}
       >
         <h3 className="mb-6 flex items-center gap-2" style={{ color: 'rgba(50, 30, 90, 1)' }}>
@@ -309,28 +309,28 @@ ${analysis.missing_skills.length > 0 ? analysis.missing_skills.map(skill => `- C
         {/* Stats Cards */}
         <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-4 mb-6">
           <div className="text-center p-4 rounded-lg backdrop-blur-sm border border-white/30" style={{ background: 'rgba(240, 220, 230, 0.3)' }}>
-            <div className="text-3xl mb-1" style={{ color: 'rgba(50, 30, 90, 1)' }}>
+            <div className="text-3xl mb-1" style={{ color: 'rgba(0, 31, 63, 1)' }}>
               {analysis.repo_insights.repo_count}
             </div>
-            <div className="text-sm" style={{ color: 'rgba(60, 40, 100, 0.95)' }}>Repositories</div>
+            <div className="text-sm" style={{ color: 'rgba(0, 51, 102, 0.95)' }}>Repositories</div>
           </div>
           <div className="text-center p-4 rounded-lg backdrop-blur-sm border border-white/30" style={{ background: 'rgba(240, 200, 220, 0.3)' }}>
-            <div className="text-3xl mb-1" style={{ color: 'rgba(50, 30, 90, 1)' }}>
+            <div className="text-3xl mb-1" style={{ color: 'rgba(0, 31, 63, 1)' }}>
               {analysis.repo_insights.total_stars}
             </div>
-            <div className="text-sm" style={{ color: 'rgba(60, 40, 100, 0.95)' }}>Total Stars</div>
+            <div className="text-sm" style={{ color: 'rgba(0, 51, 102, 0.95)' }}>Total Stars</div>
           </div>
           <div className="text-center p-4 rounded-lg backdrop-blur-sm border border-white/30" style={{ background: 'rgba(200, 200, 240, 0.3)' }}>
-            <div className="text-3xl mb-1" style={{ color: 'rgba(50, 30, 90, 1)' }}>
+            <div className="text-3xl mb-1" style={{ color: 'rgba(0, 31, 63, 1)' }}>
               {analysis.repo_insights.total_forks}
             </div>
-            <div className="text-sm" style={{ color: 'rgba(60, 40, 100, 0.95)' }}>Total Forks</div>
+            <div className="text-sm" style={{ color: 'rgba(0, 51, 102, 0.95)' }}>Total Forks</div>
           </div>
           <div className="text-center p-4 rounded-lg backdrop-blur-sm border border-white/30" style={{ background: 'rgba(200, 220, 240, 0.3)' }}>
-            <div className="text-3xl mb-1" style={{ color: 'rgba(50, 30, 90, 1)' }}>
+            <div className="text-3xl mb-1" style={{ color: 'rgba(0, 31, 63, 1)' }}>
               {Object.keys(analysis.repo_insights.languages).length}
             </div>
-            <div className="text-sm" style={{ color: 'rgba(60, 40, 100, 0.95)' }}>Languages</div>
+            <div className="text-sm" style={{ color: 'rgba(0, 51, 102, 0.95)' }}>Languages</div>
           </div>
         </div>
 
@@ -346,19 +346,19 @@ ${analysis.missing_skills.length > 0 ? analysis.missing_skills.map(skill => `- C
                 <BarChart data={repoStatsData} margin={{ top: 20, right: 30, left: 20, bottom: 5 }}>
                   <XAxis 
                     dataKey="name" 
-                    tick={{ fill: 'rgba(60, 40, 100, 0.95)', fontSize: 12 }}
-                    axisLine={{ stroke: 'rgba(180, 160, 220, 0.5)' }}
+                    tick={{ fill: 'rgba(0, 51, 102, 0.95)', fontSize: 12 }}
+                    axisLine={{ stroke: 'rgba(70, 130, 180, 0.5)' }}
                   />
                   <YAxis 
-                    tick={{ fill: 'rgba(60, 40, 100, 0.95)', fontSize: 12 }}
-                    axisLine={{ stroke: 'rgba(180, 160, 220, 0.5)' }}
+                    tick={{ fill: 'rgba(0, 51, 102, 0.95)', fontSize: 12 }}
+                    axisLine={{ stroke: 'rgba(70, 130, 180, 0.5)' }}
                   />
                   <Tooltip 
                     contentStyle={{
                       backgroundColor: 'rgba(255, 255, 255, 0.9)',
-                      border: '1px solid rgba(180, 160, 220, 0.5)',
+                      border: '1px solid rgba(70, 130, 180, 0.5)',
                       borderRadius: '8px',
-                      color: 'rgba(50, 30, 90, 1)'
+                      color: 'rgba(0, 31, 63, 1)'
                     }}
                   />
                   <Bar dataKey="value" radius={[4, 4, 0, 0]}>
@@ -414,7 +414,7 @@ ${analysis.missing_skills.length > 0 ? analysis.missing_skills.map(skill => `- C
                       className="w-3 h-3 rounded-full" 
                       style={{ backgroundColor: lang.color }}
                     />
-                    <span className="text-sm" style={{ color: 'rgba(60, 40, 100, 0.95)' }}>
+                    <span className="text-sm" style={{ color: 'rgba(0, 51, 102, 0.95)' }}>
                       {lang.name}
                     </span>
                   </div>
@@ -434,21 +434,21 @@ ${analysis.missing_skills.length > 0 ? analysis.missing_skills.map(skill => `- C
             borderColor: 'rgba(255, 255, 255, 0.4)' 
           }}
         >
-          <h3 className="mb-4 flex items-center gap-2" style={{ color: 'rgba(50, 30, 90, 1)' }}>
-            <CheckCircle2 className="w-5 h-5" style={{ color: 'rgba(180, 200, 230, 1)' }} />
+          <h3 className="mb-4 flex items-center gap-2" style={{ color: 'rgba(0, 31, 63, 1)' }}>
+            <CheckCircle2 className="w-5 h-5" style={{ color: 'rgba(70, 130, 180, 1)' }} />
             Strengths
           </h3>
           <ul className="space-y-3">
-            <li className="flex items-start gap-2" style={{ color: 'rgba(50, 30, 90, 1)' }}>
-              <TrendingUp className="w-4 h-4 mt-1 flex-shrink-0" style={{ color: 'rgba(180, 200, 230, 1)' }} />
+            <li className="flex items-start gap-2" style={{ color: 'rgba(0, 31, 63, 1)' }}>
+              <TrendingUp className="w-4 h-4 mt-1 flex-shrink-0" style={{ color: 'rgba(70, 130, 180, 1)' }} />
               <span className="text-sm">Strong match with {analysis.matching_skills.length} required technologies</span>
             </li>
-            <li className="flex items-start gap-2" style={{ color: 'rgba(50, 30, 90, 1)' }}>
-              <TrendingUp className="w-4 h-4 mt-1 flex-shrink-0" style={{ color: 'rgba(180, 200, 230, 1)' }} />
+            <li className="flex items-start gap-2" style={{ color: 'rgba(0, 31, 63, 1)' }}>
+              <TrendingUp className="w-4 h-4 mt-1 flex-shrink-0" style={{ color: 'rgba(70, 130, 180, 1)' }} />
               <span className="text-sm">Active GitHub profile with {analysis.repo_insights.repo_count} repositories</span>
             </li>
-            <li className="flex items-start gap-2" style={{ color: 'rgba(50, 30, 90, 1)' }}>
-              <TrendingUp className="w-4 h-4 mt-1 flex-shrink-0" style={{ color: 'rgba(180, 200, 230, 1)' }} />
+            <li className="flex items-start gap-2" style={{ color: 'rgba(0, 31, 63, 1)' }}>
+              <TrendingUp className="w-4 h-4 mt-1 flex-shrink-0" style={{ color: 'rgba(70, 130, 180, 1)' }} />
               <span className="text-sm">Good repository engagement ({analysis.repo_insights.total_stars} stars)</span>
             </li>
           </ul>
@@ -461,21 +461,21 @@ ${analysis.missing_skills.length > 0 ? analysis.missing_skills.map(skill => `- C
             borderColor: 'rgba(255, 255, 255, 0.4)' 
           }}
         >
-          <h3 className="mb-4 flex items-center gap-2" style={{ color: 'rgba(50, 30, 90, 1)' }}>
-            <AlertCircle className="w-5 h-5" style={{ color: 'rgba(240, 180, 200, 1)' }} />
+          <h3 className="mb-4 flex items-center gap-2" style={{ color: 'rgba(0, 31, 63, 1)' }}>
+            <AlertCircle className="w-5 h-5" style={{ color: 'rgba(100, 149, 237, 1)' }} />
             Areas to Explore
           </h3>
           <ul className="space-y-3">
             {analysis.missing_skills.length > 0 ? (
               analysis.missing_skills.map((skill: string, index: number) => (
-                <li key={index} className="flex items-start gap-2" style={{ color: 'rgba(50, 30, 90, 1)' }}>
-                  <AlertCircle className="w-4 h-4 mt-1 flex-shrink-0" style={{ color: 'rgba(240, 180, 200, 1)' }} />
+              <li key={index} className="flex items-start gap-2" style={{ color: 'rgba(0, 31, 63, 1)' }}>
+                <AlertCircle className="w-4 h-4 mt-1 flex-shrink-0" style={{ color: 'rgba(100, 149, 237, 1)' }} />
                   <span className="text-sm">Consider gaining experience with {skill}</span>
                 </li>
               ))
             ) : (
-              <li className="flex items-start gap-2" style={{ color: 'rgba(50, 30, 90, 1)' }}>
-                <CheckCircle2 className="w-4 h-4 mt-1 flex-shrink-0" style={{ color: 'rgba(180, 200, 230, 1)' }} />
+              <li className="flex items-start gap-2" style={{ color: 'rgba(0, 31, 63, 1)' }}>
+                <CheckCircle2 className="w-4 h-4 mt-1 flex-shrink-0" style={{ color: 'rgba(70, 130, 180, 1)' }} />
                 <span className="text-sm">All required skills are covered!</span>
               </li>
             )}

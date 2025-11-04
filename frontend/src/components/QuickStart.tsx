@@ -31,18 +31,18 @@ export function QuickStart({
     <div 
       className="border rounded-xl p-6 mb-6 backdrop-blur-md shadow-lg" 
       style={{ 
-        background: 'rgba(255, 220, 230, 0.25)',
-        borderColor: 'rgba(255, 255, 255, 0.3)'
+        background: 'rgba(255, 255, 255, 0.35)',
+        borderColor: 'rgba(255, 255, 255, 0.5)'
       }}
     >
       <div className="flex items-center gap-2 mb-4">
-        <Zap className="w-4 h-4" style={{ color: 'rgba(50, 30, 90, 1)' }} />
-        <span style={{ color: 'rgba(50, 30, 90, 1)' }}>Quick Start</span>
+        <Zap className="w-4 h-4" style={{ color: 'rgba(0, 31, 63, 1)' }} />
+        <span style={{ color: 'rgba(0, 31, 63, 1)' }}>Quick Start</span>
       </div>
 
       <div className="space-y-4">
         <div>
-          <p className="text-sm mb-2" style={{ color: 'rgba(60, 40, 100, 0.95)' }}>Try these popular users:</p>
+          <p className="text-sm mb-2" style={{ color: 'rgba(0, 51, 102, 0.95)' }}>Try these popular users:</p>
           <div className="flex flex-wrap gap-2">
             {sampleUsers.map((user) => (
               <Badge
@@ -50,9 +50,9 @@ export function QuickStart({
                 variant="outline"
                 className="cursor-pointer hover:opacity-80 transition-all backdrop-blur-sm"
                 style={{ 
-                  background: 'rgba(255, 255, 255, 0.4)',
-                  borderColor: 'rgba(180, 160, 220, 0.5)', 
-                  color: 'rgba(50, 30, 90, 1)' 
+                  background: 'rgba(255, 255, 255, 0.5)',
+                  borderColor: 'rgba(70, 130, 180, 0.5)', 
+                  color: 'rgba(0, 31, 63, 1)' 
                 }}
                 onClick={() => onSelectUsername(user.substring(1))}
               >
@@ -63,7 +63,7 @@ export function QuickStart({
         </div>
 
         <div>
-          <p className="text-sm mb-2" style={{ color: 'rgba(60, 40, 100, 0.95)' }}>Or sample job descriptions:</p>
+          <p className="text-sm mb-2" style={{ color: 'rgba(0, 51, 102, 0.95)' }}>Or sample job descriptions:</p>
           <div className="flex flex-wrap gap-2">
             {sampleJobs.map((job) => (
               <Badge
@@ -71,9 +71,9 @@ export function QuickStart({
                 variant="outline"
                 className="cursor-pointer hover:opacity-80 transition-all backdrop-blur-sm"
                 style={{ 
-                  background: 'rgba(255, 255, 255, 0.4)',
-                  borderColor: 'rgba(200, 180, 230, 0.5)', 
-                  color: 'rgba(50, 30, 90, 1)' 
+                  background: 'rgba(255, 255, 255, 0.5)',
+                  borderColor: 'rgba(70, 130, 180, 0.5)', 
+                  color: 'rgba(0, 31, 63, 1)' 
                 }}
                 onClick={() => onSelectJobDescription(job.description)}
               >
@@ -89,7 +89,7 @@ export function QuickStart({
             size="sm"
             onClick={onClearAll}
             className="hover:bg-white/20 transition-all"
-            style={{ color: 'rgba(50, 30, 90, 1)' }}
+            style={{ color: 'rgba(0, 31, 63, 1)' }}
           >
             Clear All
           </Button>

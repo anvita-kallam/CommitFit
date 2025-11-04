@@ -33,18 +33,18 @@ export function AnalysisCards({
         <Card 
           className="p-6 shadow-xl border backdrop-blur-lg" 
           style={{ 
-            background: 'rgba(255, 255, 255, 0.3)',
-            borderColor: 'rgba(255, 255, 255, 0.4)' 
+            background: 'rgba(255, 255, 255, 0.4)',
+            borderColor: 'rgba(255, 255, 255, 0.5)' 
           }}
         >
           <div className="flex items-center gap-2 mb-4">
-            <Github className="w-5 h-5" style={{ color: 'rgba(50, 30, 90, 1)' }} />
-            <h3 style={{ color: 'rgba(50, 30, 90, 1)' }}>GitHub Profile Analysis</h3>
+            <Github className="w-5 h-5" style={{ color: 'rgba(0, 31, 63, 1)' }} />
+            <h3 style={{ color: 'rgba(0, 31, 63, 1)' }}>GitHub Profile Analysis</h3>
           </div>
 
           <div className="space-y-4">
             <div>
-              <Label htmlFor="github-username" style={{ color: 'rgba(50, 30, 90, 1)' }}>
+              <Label htmlFor="github-username" style={{ color: 'rgba(0, 31, 63, 1)' }}>
                 GitHub Username
               </Label>
               <Input
@@ -59,7 +59,7 @@ export function AnalysisCards({
             </div>
 
             <div>
-              <Label htmlFor="access-token" style={{ color: 'rgba(50, 30, 90, 1)' }}>
+              <Label htmlFor="access-token" style={{ color: 'rgba(0, 31, 63, 1)' }}>
                 GitHub Personal Access Token (Optional)
               </Label>
               <Input
@@ -71,7 +71,7 @@ export function AnalysisCards({
                 disabled={isAnalyzing}
                 className="mt-1"
               />
-              <p className="text-xs mt-1" style={{ color: 'rgba(60, 40, 100, 0.85)' }}>
+              <p className="text-xs mt-1" style={{ color: 'rgba(0, 71, 142, 0.85)' }}>
                 Get your token from GitHub Settings → Developer settings → Personal access tokens
               </p>
             </div>
@@ -79,8 +79,8 @@ export function AnalysisCards({
             <Button
               className="w-full backdrop-blur-md border border-white/40 shadow-lg hover:shadow-xl transition-all hover:scale-[1.02]"
               style={{ 
-                background: 'rgba(180, 160, 220, 0.4)',
-                color: 'rgba(50, 30, 90, 1)' 
+                background: 'rgba(255, 255, 255, 0.5)',
+                color: 'rgba(0, 31, 63, 1)' 
               }}
               disabled={isAnalyzing || !username}
               onClick={onAnalyzeBoth}
@@ -94,18 +94,18 @@ export function AnalysisCards({
         <Card 
           className="p-6 shadow-xl border backdrop-blur-lg" 
           style={{ 
-            background: 'rgba(255, 255, 255, 0.3)',
-            borderColor: 'rgba(255, 255, 255, 0.4)' 
+            background: 'rgba(255, 255, 255, 0.4)',
+            borderColor: 'rgba(255, 255, 255, 0.5)' 
           }}
         >
           <div className="flex items-center gap-2 mb-4">
-            <FileText className="w-5 h-5" style={{ color: 'rgba(50, 30, 90, 1)' }} />
-            <h3 style={{ color: 'rgba(50, 30, 90, 1)' }}>Job Description Analysis</h3>
+            <FileText className="w-5 h-5" style={{ color: 'rgba(0, 31, 63, 1)' }} />
+            <h3 style={{ color: 'rgba(0, 31, 63, 1)' }}>Job Description Analysis</h3>
           </div>
 
           <div className="space-y-4">
             <div>
-              <Label htmlFor="job-description" style={{ color: 'rgba(50, 30, 90, 1)' }}>
+              <Label htmlFor="job-description" style={{ color: 'rgba(0, 31, 63, 1)' }}>
                 Job Description
               </Label>
               <Textarea
@@ -118,16 +118,16 @@ export function AnalysisCards({
                 className="mt-1 resize-none"
               />
               <div className="flex justify-between items-center mt-1">
-                <p className="text-xs" style={{ color: 'rgba(60, 40, 100, 0.85)' }}>Minimum 10 characters</p>
-                <p className="text-xs" style={{ color: 'rgba(60, 40, 100, 0.85)' }}>{jobDescription.length}/4000</p>
+                <p className="text-xs" style={{ color: 'rgba(0, 71, 142, 0.85)' }}>Minimum 10 characters</p>
+                <p className="text-xs" style={{ color: 'rgba(0, 71, 142, 0.85)' }}>{jobDescription.length}/4000</p>
               </div>
             </div>
 
             <Button
               className="w-full backdrop-blur-md border border-white/40 shadow-lg hover:shadow-xl transition-all hover:scale-[1.02]"
               style={{ 
-                background: 'rgba(200, 180, 230, 0.4)',
-                color: 'rgba(50, 30, 90, 1)' 
+                background: 'rgba(255, 255, 255, 0.5)',
+                color: 'rgba(0, 31, 63, 1)' 
               }}
               disabled={isAnalyzing || jobDescription.length < 10}
               onClick={onAnalyzeBoth}
@@ -144,8 +144,8 @@ export function AnalysisCards({
           size="lg"
           className="px-8 backdrop-blur-lg border border-white/40 shadow-xl hover:shadow-2xl transition-all hover:scale-105"
           style={{ 
-            background: 'rgba(240, 200, 220, 0.5)',
-            color: 'rgba(50, 30, 90, 1)' 
+            background: 'rgba(255, 255, 255, 0.6)',
+            color: 'rgba(0, 31, 63, 1)' 
           }}
           disabled={isAnalyzing || !username || jobDescription.length < 10}
           onClick={onAnalyzeBoth}

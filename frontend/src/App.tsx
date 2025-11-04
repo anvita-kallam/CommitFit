@@ -54,8 +54,8 @@ export default function App() {
     }
 
     setIsAnalyzing(true);
-    setError('');
     setShowSuccess(false);
+    setError('');
     
     try {
       // Analyze candidate
@@ -75,15 +75,7 @@ export default function App() {
       setAnalysis(response.data);
       setShowSuccess(true);
     } catch (err: any) {
-      if (err.response?.status === 404) {
-        setError(`GitHub user '${username}' not found. Please check the username and try again.`);
-      } else if (err.response?.status === 403 || err.response?.status === 429) {
-        setError('GitHub API rate limit exceeded. Please try again in a few minutes. For higher limits, consider using GitHub authentication.');
-      } else if (err.code === 'NETWORK_ERROR' || !navigator.onLine) {
-        setError('Network error. Please check your internet connection and try again.');
-      } else {
-        setError(`Error: ${err.response?.data?.detail || err.message}`);
-      }
+      setError(`Error: ${err.response?.data?.detail || err.message}`);
     } finally {
       setIsAnalyzing(false);
     }
@@ -102,7 +94,7 @@ export default function App() {
     <div 
       className="min-h-screen relative"
       style={{
-        backgroundImage: `url(/647420dad66e2d396f246827f38a4f964b92d502.png)`,
+        backgroundImage: `url(/73b22bd79173a4bc73716edf4c59d61892b4ebae.png)`,
         backgroundSize: 'cover',
         backgroundPosition: 'center',
         backgroundAttachment: 'fixed',
@@ -115,22 +107,38 @@ export default function App() {
             <div 
               className="w-16 h-16 rounded-full flex items-center justify-center backdrop-blur-md border border-white/30 shadow-lg"
               style={{ 
-                background: 'rgba(255, 255, 255, 0.2)',
+                background: 'rgba(255, 255, 255, 0.4)',
               }}
             >
-              <svg className="w-10 h-10" viewBox="0 0 24 24" fill="rgba(80, 60, 120, 0.9)">
+              <svg className="w-10 h-10" viewBox="0 0 24 24" fill="rgba(0, 31, 63, 0.9)">
                 <path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/>
               </svg>
             </div>
-            <h1 style={{ color: 'rgba(50, 30, 90, 1)' }}>CommitFit</h1>
+            <h1 style={{ color: 'rgba(0, 31, 63, 1)' }}>CommitFit</h1>
           </div>
-          <p className="mb-2" style={{ color: 'rgba(60, 40, 100, 0.95)' }}>
+          <p className="mb-2" style={{ color: 'rgba(0, 51, 102, 0.95)' }}>
             Analyze GitHub profiles and match them with job requirements
           </p>
-          <p className="text-sm" style={{ color: 'rgba(70, 50, 110, 0.85)' }}>
+          <p className="text-sm" style={{ color: 'rgba(0, 71, 142, 0.85)' }}>
             ⌨️ Keyboard shortcuts: Ctrl/Cmd + Enter to analyze both • Escape to clear all
           </p>
         </header>
+
+        {/* Error Alert */}
+        {error && (
+          <Alert 
+            className="mb-6 border backdrop-blur-lg shadow-lg" 
+            style={{ 
+              background: 'rgba(255, 255, 255, 0.5)',
+              borderColor: 'rgba(255, 0, 0, 0.5)'
+            }}
+          >
+            <AlertCircle className="h-4 w-4" style={{ color: 'rgba(0, 31, 63, 1)' }} />
+            <AlertDescription style={{ color: 'rgba(0, 31, 63, 1)' }}>
+              {error}
+            </AlertDescription>
+          </Alert>
+        )}
 
         {/* Quick Start */}
         <QuickStart
@@ -139,33 +147,17 @@ export default function App() {
           onClearAll={handleClearAll}
         />
 
-        {/* Error Alert */}
-        {error && (
-          <Alert 
-            className="mb-6 border backdrop-blur-lg shadow-lg" 
-            style={{ 
-              background: 'rgba(240, 200, 200, 0.3)',
-              borderColor: 'rgba(255, 255, 255, 0.4)'
-            }}
-          >
-            <AlertCircle className="h-4 w-4" style={{ color: 'rgba(200, 50, 50, 1)' }} />
-            <AlertDescription style={{ color: 'rgba(200, 50, 50, 1)' }}>
-              {error}
-            </AlertDescription>
-          </Alert>
-        )}
-
         {/* Success Banner */}
         {showSuccess && analysis && (
           <Alert 
             className="mb-6 border backdrop-blur-lg shadow-lg" 
             style={{ 
-              background: 'rgba(180, 160, 220, 0.3)',
-              borderColor: 'rgba(255, 255, 255, 0.4)'
+              background: 'rgba(255, 255, 255, 0.5)',
+              borderColor: 'rgba(70, 130, 180, 0.5)'
             }}
           >
-            <CheckCircle className="h-4 w-4" style={{ color: 'rgba(50, 30, 90, 1)' }} />
-            <AlertDescription style={{ color: 'rgba(50, 30, 90, 1)' }}>
+            <CheckCircle className="h-4 w-4" style={{ color: 'rgba(0, 31, 63, 1)' }} />
+            <AlertDescription style={{ color: 'rgba(0, 31, 63, 1)' }}>
               Match analysis complete! Match score: {analysis.match_score.toFixed(1)}%
             </AlertDescription>
           </Alert>
