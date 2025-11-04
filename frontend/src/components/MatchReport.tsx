@@ -213,7 +213,7 @@ ${analysis.missing_skills.length > 0 ? analysis.missing_skills.map(skill => `- C
             <div className="text-5xl mb-2" style={{ color: getScoreColor(analysis.match_score) }}>
               {analysis.match_score.toFixed(1)}%
             </div>
-            <div className="text-sm" style={{ color: 'rgba(0, 51, 102, 0.95)' }}>
+            <div className="text-sm" style={{ color: 'rgba(0, 31, 63, 1)' }}>
               Match Score
             </div>
           </div>

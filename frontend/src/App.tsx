@@ -94,7 +94,7 @@ export default function App() {
     <div 
       className="min-h-screen relative"
       style={{
-        backgroundImage: `url(/73b22bd79173a4bc73716edf4c59d61892b4ebae.png)`,
+        backgroundImage: `url(/background.png)`,
         backgroundSize: 'cover',
         backgroundPosition: 'center',
         backgroundAttachment: 'fixed',
@@ -118,9 +118,6 @@ export default function App() {
           </div>
           <p className="mb-2" style={{ color: 'rgba(0, 51, 102, 0.95)' }}>
             Analyze GitHub profiles and match them with job requirements
-          </p>
-          <p className="text-sm" style={{ color: 'rgba(0, 71, 142, 0.85)' }}>
-            ⌨️ Keyboard shortcuts: Ctrl/Cmd + Enter to analyze both • Escape to clear all
           </p>
         </header>
 
