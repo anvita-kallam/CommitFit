@@ -34,7 +34,8 @@ export function AnalysisCards({
           className="p-6 shadow-xl border backdrop-blur-lg" 
           style={{ 
             background: 'rgba(255, 255, 255, 0.4)',
-            borderColor: 'rgba(255, 255, 255, 0.5)' 
+            borderColor: 'rgba(255, 255, 255, 0.5)',
+            boxShadow: '0 8px 32px rgba(0, 0, 0, 0.2), 0 2px 8px rgba(0, 0, 0, 0.1)',
           }}
         >
           <div className="flex items-center gap-2 mb-4">
@@ -95,7 +96,8 @@ export function AnalysisCards({
           className="p-6 shadow-xl border backdrop-blur-lg" 
           style={{ 
             background: 'rgba(255, 255, 255, 0.4)',
-            borderColor: 'rgba(255, 255, 255, 0.5)' 
+            borderColor: 'rgba(255, 255, 255, 0.5)',
+            boxShadow: '0 8px 32px rgba(0, 0, 0, 0.2), 0 2px 8px rgba(0, 0, 0, 0.1)',
           }}
         >
           <div className="flex items-center gap-2 mb-4">
@@ -145,7 +147,8 @@ export function AnalysisCards({
           className="px-8 backdrop-blur-lg border border-white/40 shadow-xl hover:shadow-2xl transition-all hover:scale-105"
           style={{ 
             background: 'rgba(255, 255, 255, 0.6)',
-            color: 'rgba(0, 31, 63, 1)' 
+            color: 'rgba(0, 31, 63, 1)',
+            boxShadow: '0 8px 32px rgba(0, 0, 0, 0.25), 0 4px 16px rgba(0, 0, 0, 0.15)',
           }}
           disabled={isAnalyzing || !username || jobDescription.length < 10}
           onClick={onAnalyzeBoth}

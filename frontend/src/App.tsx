@@ -127,7 +127,8 @@ export default function App() {
             className="mb-6 border backdrop-blur-lg shadow-lg" 
             style={{ 
               background: 'rgba(255, 255, 255, 0.5)',
-              borderColor: 'rgba(255, 0, 0, 0.5)'
+              borderColor: 'rgba(255, 0, 0, 0.5)',
+              boxShadow: '0 8px 32px rgba(0, 0, 0, 0.2), 0 2px 8px rgba(0, 0, 0, 0.1)',
             }}
           >
             <AlertCircle className="h-4 w-4" style={{ color: 'rgba(0, 31, 63, 1)' }} />
@@ -150,7 +151,8 @@ export default function App() {
             className="mb-6 border backdrop-blur-lg shadow-lg" 
             style={{ 
               background: 'rgba(255, 255, 255, 0.5)',
-              borderColor: 'rgba(70, 130, 180, 0.5)'
+              borderColor: 'rgba(70, 130, 180, 0.5)',
+              boxShadow: '0 8px 32px rgba(0, 0, 0, 0.2), 0 2px 8px rgba(0, 0, 0, 0.1)',
             }}
           >
             <CheckCircle className="h-4 w-4" style={{ color: 'rgba(0, 31, 63, 1)' }} />

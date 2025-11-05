@@ -134,7 +134,8 @@ ${analysis.missing_skills.length > 0 ? analysis.missing_skills.map(skill => `- C
         className="p-6 shadow-xl border backdrop-blur-lg" 
         style={{ 
           background: 'rgba(255, 255, 255, 0.4)',
-          borderColor: 'rgba(255, 255, 255, 0.5)' 
+          borderColor: 'rgba(255, 255, 255, 0.5)',
+          boxShadow: '0 8px 32px rgba(0, 0, 0, 0.2), 0 2px 8px rgba(0, 0, 0, 0.1)',
         }}
       >
         <div className="flex items-center justify-between">
@@ -180,7 +181,8 @@ ${analysis.missing_skills.length > 0 ? analysis.missing_skills.map(skill => `- C
         className="p-6 shadow-xl border backdrop-blur-lg" 
         style={{ 
           background: 'rgba(255, 255, 255, 0.4)',
-          borderColor: 'rgba(255, 255, 255, 0.5)' 
+          borderColor: 'rgba(255, 255, 255, 0.5)',
+          boxShadow: '0 8px 32px rgba(0, 0, 0, 0.2), 0 2px 8px rgba(0, 0, 0, 0.1)',
         }}
       >
         <div className="flex items-start gap-6">
@@ -225,7 +227,8 @@ ${analysis.missing_skills.length > 0 ? analysis.missing_skills.map(skill => `- C
         className="p-6 shadow-xl border backdrop-blur-lg" 
         style={{ 
           background: 'rgba(255, 255, 255, 0.4)',
-          borderColor: 'rgba(255, 255, 255, 0.5)' 
+          borderColor: 'rgba(255, 255, 255, 0.5)',
+          boxShadow: '0 8px 32px rgba(0, 0, 0, 0.2), 0 2px 8px rgba(0, 0, 0, 0.1)',
         }}
       >
         <h3 className="mb-4 flex items-center gap-2" style={{ color: 'rgba(0, 31, 63, 1)' }}>
@@ -298,7 +301,8 @@ ${analysis.missing_skills.length > 0 ? analysis.missing_skills.map(skill => `- C
         className="p-6 shadow-xl border backdrop-blur-lg" 
         style={{ 
           background: 'rgba(255, 255, 255, 0.4)',
-          borderColor: 'rgba(255, 255, 255, 0.5)' 
+          borderColor: 'rgba(255, 255, 255, 0.5)',
+          boxShadow: '0 8px 32px rgba(0, 0, 0, 0.2), 0 2px 8px rgba(0, 0, 0, 0.1)',
         }}
       >
         <h3 className="mb-6 flex items-center gap-2" style={{ color: 'rgba(50, 30, 90, 1)' }}>
@@ -431,7 +435,8 @@ ${analysis.missing_skills.length > 0 ? analysis.missing_skills.map(skill => `- C
           className="p-6 shadow-xl border backdrop-blur-lg" 
           style={{ 
             background: 'rgba(255, 255, 255, 0.3)',
-            borderColor: 'rgba(255, 255, 255, 0.4)' 
+            borderColor: 'rgba(255, 255, 255, 0.4)',
+            boxShadow: '0 8px 32px rgba(0, 0, 0, 0.2), 0 2px 8px rgba(0, 0, 0, 0.1)',
           }}
         >
           <h3 className="mb-4 flex items-center gap-2" style={{ color: 'rgba(0, 31, 63, 1)' }}>
@@ -458,7 +463,8 @@ ${analysis.missing_skills.length > 0 ? analysis.missing_skills.map(skill => `- C
           className="p-6 shadow-xl border backdrop-blur-lg" 
           style={{ 
             background: 'rgba(255, 255, 255, 0.3)',
-            borderColor: 'rgba(255, 255, 255, 0.4)' 
+            borderColor: 'rgba(255, 255, 255, 0.4)',
+            boxShadow: '0 8px 32px rgba(0, 0, 0, 0.2), 0 2px 8px rgba(0, 0, 0, 0.1)',
           }}
         >
           <h3 className="mb-4 flex items-center gap-2" style={{ color: 'rgba(0, 31, 63, 1)' }}>

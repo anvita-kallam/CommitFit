@@ -32,7 +32,8 @@ export function QuickStart({
       className="border rounded-xl p-6 mb-6 backdrop-blur-md shadow-lg" 
       style={{ 
         background: 'rgba(255, 255, 255, 0.35)',
-        borderColor: 'rgba(255, 255, 255, 0.5)'
+        borderColor: 'rgba(255, 255, 255, 0.5)',
+        boxShadow: '0 8px 32px rgba(0, 0, 0, 0.2), 0 2px 8px rgba(0, 0, 0, 0.1)',
       }}
     >
       <div className="flex items-center gap-2 mb-4">
