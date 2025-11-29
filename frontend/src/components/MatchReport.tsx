@@ -39,9 +39,10 @@ interface MatchReportProps {
 
 export function MatchReport({ analysis }: MatchReportProps) {
   const getScoreColor = (score: number) => {
-    if (score >= 80) return 'rgba(70, 130, 180, 1)';
-    if (score >= 60) return 'rgba(100, 149, 237, 1)';
-    return 'rgba(135, 206, 250, 1)';
+    // Use darker navy tones for better contrast and readability
+    if (score >= 80) return 'rgba(0, 31, 63, 1)';
+    if (score >= 60) return 'rgba(0, 31, 63, 0.9)';
+    return 'rgba(0, 31, 63, 0.8)';
   };
 
   // Chart colors for consistency - blue theme
