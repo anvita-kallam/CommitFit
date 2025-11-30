@@ -12,14 +12,10 @@ import json
 app = FastAPI(title="CommitFit API", version="1.0.0")
 
 # CORS middleware for frontend communication
-allowed_origins = [
-    "http://localhost:3000",
-    "https://commit-fit.vercel.app",
-]
-
+# Allow all origins for production deployment
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=allowed_origins,
+    allow_origins=["*"],  # Allow all origins for production
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
