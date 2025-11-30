@@ -107,38 +107,89 @@ def analyze_repo_languages(repos: List[Dict], github_token: Optional[str] = None
 
 def extract_skills_from_text(text: str) -> List[str]:
     """Extract technical skills from job description using spaCy"""
-    if not nlp:
-        # Fallback to simple regex if spaCy not available
-        tech_keywords = [
-            'python', 'javascript', 'java', 'react', 'angular', 'vue', 'node.js',
-            'django', 'flask', 'fastapi', 'spring', 'express', 'mongodb', 'postgresql',
-            'mysql', 'redis', 'docker', 'kubernetes', 'aws', 'azure', 'gcp',
-            'git', 'github', 'gitlab', 'jenkins', 'ci/cd', 'rest api', 'graphql',
-            'microservices', 'agile', 'scrum', 'tensorflow', 'pytorch', 'pandas',
-            'numpy', 'scikit-learn', 'machine learning', 'ai', 'data science'
-        ]
-        
-        found_skills = []
-        text_lower = text.lower()
-        for keyword in tech_keywords:
-            if keyword in text_lower:
-                found_skills.append(keyword)
-        return found_skills
-    
-    doc = nlp(text.lower())
+    # Expanded tech keywords list with variations
     tech_keywords = [
-        'python', 'javascript', 'java', 'react', 'angular', 'vue', 'node.js',
-        'django', 'flask', 'fastapi', 'spring', 'express', 'mongodb', 'postgresql',
-        'mysql', 'redis', 'docker', 'kubernetes', 'aws', 'azure', 'gcp',
-        'git', 'github', 'gitlab', 'jenkins', 'ci/cd', 'rest api', 'graphql',
-        'microservices', 'agile', 'scrum', 'tensorflow', 'pytorch', 'pandas',
-        'numpy', 'scikit-learn', 'machine learning', 'ai', 'data science'
+        # Programming Languages
+        'python', 'javascript', 'java', 'c++', 'cpp', 'cplusplus', 'c#', 'csharp',
+        'typescript', 'go', 'golang', 'rust', 'swift', 'kotlin', 'scala', 'ruby',
+        'php', 'r', 'matlab', 'perl', 'lua', 'dart', 'objective-c', 'objectivec',
+        # Web Frameworks
+        'react', 'angular', 'vue', 'vue.js', 'svelte', 'next.js', 'nextjs',
+        'nuxt', 'ember', 'backbone', 'jquery',
+        # Backend Frameworks
+        'node.js', 'nodejs', 'express', 'django', 'flask', 'fastapi', 'spring',
+        'spring boot', 'laravel', 'rails', 'ruby on rails', 'asp.net', 'aspnet',
+        'nest.js', 'nestjs', 'koa', 'hapi',
+        # Databases
+        'mongodb', 'postgresql', 'postgres', 'mysql', 'sqlite', 'redis', 'cassandra',
+        'elasticsearch', 'dynamodb', 'oracle', 'sql server', 'mariadb', 'neo4j',
+        # Cloud & DevOps
+        'docker', 'kubernetes', 'k8s', 'aws', 'azure', 'gcp', 'google cloud',
+        'terraform', 'ansible', 'jenkins', 'github actions', 'gitlab ci',
+        'ci/cd', 'cicd', 'devops',
+        # Tools & Others
+        'git', 'github', 'gitlab', 'bitbucket', 'jira', 'confluence',
+        'rest api', 'graphql', 'grpc', 'microservices', 'agile', 'scrum',
+        # Data Science & ML
+        'tensorflow', 'pytorch', 'keras', 'pandas', 'numpy', 'scikit-learn',
+        'scikit learn', 'machine learning', 'ml', 'ai', 'artificial intelligence',
+        'data science', 'deep learning', 'neural networks', 'opencv',
+        # Frontend
+        'html', 'css', 'sass', 'scss', 'less', 'webpack', 'babel', 'es6',
+        'redux', 'mobx', 'zustand'
     ]
     
     found_skills = []
-    for token in doc:
-        if token.text in tech_keywords or any(keyword in token.text for keyword in tech_keywords):
-            found_skills.append(token.text)
+    text_lower = text.lower()
+    
+    # Handle special cases with regex patterns (these have special characters)
+    # Pattern for c++ variations - handle + which is not a word character
+    cpp_patterns = [
+        r'(?<!\w)c\+\+(?!\w)',  # c++ with word boundaries (handles +)
+        r'\bcpp\b',              # cpp as whole word
+        r'\bcplusplus\b'         # cplusplus as whole word
+    ]
+    if any(re.search(pattern, text_lower) for pattern in cpp_patterns):
+        found_skills.append('c++')
+    
+    # Pattern for c# variations - handle # which is not a word character
+    csharp_patterns = [
+        r'(?<!\w)c#(?!\w)',      # c# with word boundaries (handles #)
+        r'\bcsharp\b'            # csharp as whole word
+    ]
+    if any(re.search(pattern, text_lower) for pattern in csharp_patterns):
+        found_skills.append('c#')
+    
+    # Check for all other keywords
+    for keyword in tech_keywords:
+        # Skip c++ and c# as we handle them with regex above
+        if keyword in ['c++', 'cpp', 'cplusplus', 'c#', 'csharp']:
+            continue
+            
+        # Use word boundaries for better matching
+        pattern = r'\b' + re.escape(keyword) + r'\b'
+        if re.search(pattern, text_lower):
+            # Normalize the keyword (use canonical form)
+            if keyword in ['cpp', 'cplusplus']:
+                found_skills.append('c++')
+            elif keyword in ['csharp']:
+                found_skills.append('c#')
+            elif keyword in ['nodejs', 'node.js']:
+                found_skills.append('node.js')
+            elif keyword in ['nextjs', 'next.js']:
+                found_skills.append('next.js')
+            elif keyword in ['nestjs', 'nest.js']:
+                found_skills.append('nest.js')
+            elif keyword in ['vue.js', 'vue']:
+                found_skills.append('vue')
+            elif keyword in ['postgres', 'postgresql']:
+                found_skills.append('postgresql')
+            elif keyword in ['golang', 'go']:
+                found_skills.append('go')
+            elif keyword in ['scikit learn', 'scikit-learn']:
+                found_skills.append('scikit-learn')
+            else:
+                found_skills.append(keyword)
     
     return list(set(found_skills))
 
