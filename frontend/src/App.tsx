@@ -60,7 +60,7 @@ export default function App() {
     
     try {
       // Analyze candidate
-      await axios.post(`${API_BASE_URL}/analyze_candidate`, {
+      const candidateResponse = await axios.post(`${API_BASE_URL}/analyze_candidate`, {
         github_username: username.trim(),
         github_token: accessToken.trim() || null
       });
@@ -71,8 +71,10 @@ export default function App() {
         github_token: accessToken.trim() || null
       });
       
-      // Get match report
-      const response = await axios.get(`${API_BASE_URL}/match_report`);
+      // Get match report - pass username to ensure we get the right candidate data
+      const response = await axios.get(`${API_BASE_URL}/match_report`, {
+        params: { username: username.trim() }
+      });
       setAnalysis(response.data);
       setShowSuccess(true);
     } catch (err: any) {

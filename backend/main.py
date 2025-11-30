@@ -38,6 +38,7 @@ class JobAnalysisRequest(BaseModel):
     github_token: Optional[str] = None
 
 class MatchReport(BaseModel):
+    username: str
     match_score: float
     matching_skills: List[str]
     missing_skills: List[str]
@@ -213,26 +214,44 @@ async def analyze_job(request: JobAnalysisRequest):
         raise HTTPException(status_code=500, detail=str(e))
 
 @app.get("/match_report")
-async def get_match_report():
+async def get_match_report(username: Optional[str] = None):
     """Get match report between candidate and job"""
-    print(f"📊 Match report requested")
+    print(f"📊 Match report requested for username: {username}")
     print(f"📊 Candidates in memory: {list(candidate_data.keys())}")
     print(f"📊 Job data exists: {bool(job_data)}")
     
-    if not candidate_data or not job_data:
-        raise HTTPException(status_code=400, detail="Please analyze both candidate and job first")
+    if not job_data:
+        raise HTTPException(status_code=400, detail="Please analyze job description first")
     
-    # Get the most recent candidate and job data
-    latest_candidate_username = list(candidate_data.keys())[-1]
-    latest_candidate = candidate_data[latest_candidate_username]
-    current_job = job_data['current_job']
+    # Use provided username or get the most recent candidate
+    if username and username in candidate_data:
+        latest_candidate = candidate_data[username]
+        latest_candidate_username = username
+    elif candidate_data:
+        # Fallback to most recent candidate
+        latest_candidate_username = list(candidate_data.keys())[-1]
+        latest_candidate = candidate_data[latest_candidate_username]
+        print(f"⚠️ Username not provided or not found, using most recent: {latest_candidate_username}")
+    else:
+        raise HTTPException(status_code=400, detail="Please analyze candidate first")
+    
+    current_job = job_data.get('current_job')
+    if not current_job:
+        raise HTTPException(status_code=400, detail="Job data not found. Please analyze job description again.")
     
     print(f"📊 Using candidate: {latest_candidate_username}")
-    print(f"📊 Candidate skills: {latest_candidate['skills'][:5]}...")  # First 5 skills
-    print(f"📊 Job skills: {current_job['skills'][:5]}...")  # First 5 skills
+    print(f"📊 Candidate skills count: {len(latest_candidate.get('skills', []))}")
+    print(f"📊 Candidate skills: {latest_candidate.get('skills', [])[:5]}...")  # First 5 skills
+    print(f"📊 Job skills count: {len(current_job.get('skills', []))}")
+    print(f"📊 Job skills: {current_job.get('skills', [])[:5]}...")  # First 5 skills
     
-    candidate_skills = latest_candidate['skills']
-    job_skills = current_job['skills']
+    candidate_skills = latest_candidate.get('skills', [])
+    job_skills = current_job.get('skills', [])
+    
+    if not candidate_skills:
+        print(f"⚠️ Warning: No candidate skills found for {latest_candidate_username}")
+    if not job_skills:
+        print(f"⚠️ Warning: No job skills found")
     
     match_score = calculate_match_score(candidate_skills, job_skills)
     print(f"📊 Match score calculated: {match_score}%")
@@ -244,12 +263,13 @@ async def get_match_report():
     missing_skills = list(set(job_skills_lower) - set(candidate_skills_lower))
     
     return MatchReport(
+        username=latest_candidate_username,
         match_score=match_score,
         matching_skills=matching_skills,
         missing_skills=missing_skills,
         candidate_skills=candidate_skills,
         job_skills=job_skills,
-        repo_insights=latest_candidate['repo_insights']
+        repo_insights=latest_candidate.get('repo_insights', {})
     )
 
 @app.get("/")
