@@ -33,6 +33,14 @@ export default function App() {
   const [showSuccess, setShowSuccess] = useState(false);
   const [error, setError] = useState('');
 
+  // Clear analysis when username changes
+  useEffect(() => {
+    if (analysis && analysis.username !== username.trim()) {
+      setAnalysis(null);
+      setShowSuccess(false);
+    }
+  }, [username]);
+
   useEffect(() => {
     const handleKeyboard = (e: KeyboardEvent) => {
       if ((e.ctrlKey || e.metaKey) && e.key === 'Enter') {
@@ -57,11 +65,15 @@ export default function App() {
     setIsAnalyzing(true);
     setShowSuccess(false);
     setError('');
+    // Clear previous analysis before starting new analysis
+    setAnalysis(null);
+    
+    const currentUsername = username.trim();
     
     try {
       // Analyze candidate
       const candidateResponse = await axios.post(`${API_BASE_URL}/analyze_candidate`, {
-        github_username: username.trim(),
+        github_username: currentUsername,
         github_token: accessToken.trim() || null
       });
       
@@ -73,10 +85,14 @@ export default function App() {
       
       // Get match report - pass username to ensure we get the right candidate data
       const response = await axios.get(`${API_BASE_URL}/match_report`, {
-        params: { username: username.trim() }
+        params: { username: currentUsername }
       });
-      setAnalysis(response.data);
-      setShowSuccess(true);
+      
+      // Only set analysis if username hasn't changed during the async operation
+      if (username.trim() === currentUsername) {
+        setAnalysis(response.data);
+        setShowSuccess(true);
+      }
     } catch (err: any) {
       setError(`Error: ${err.response?.data?.detail || err.message}`);
     } finally {
@@ -178,7 +194,7 @@ export default function App() {
         />
 
         {/* Match Report */}
-        {analysis && (
+        {analysis && analysis.username === username.trim() && (
           <MatchReport analysis={analysis} onReset={handleClearAll} />
         )}
       </div>
