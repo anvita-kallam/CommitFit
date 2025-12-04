@@ -1,20 +1,51 @@
-# CommitFit
+# 🚀 CommitFit  
+**Intelligent Candidate–Job Matching from GitHub Activity**  
+https://commit-fit.vercel.app/
 
-A full-stack application that analyzes GitHub profiles and matches them with job requirements to help recruiters find the best candidates.
+CommitFit is a full-stack application that analyzes GitHub profiles and matches them with job requirements to help recruiters and hiring managers quickly identify strong technical candidates. By combining GitHub repository analysis with NLP-driven job description parsing, CommitFit delivers data-backed skill matching through an intuitive, modern interface.
 
-## Features
+---
 
-### Backend (Python + FastAPI)
-- **GitHub Repo Analysis**: Fetches public repositories and extracts programming languages, frameworks, and commit history
-- **Job Description Parsing**: Uses spaCy NLP to extract key technologies and skills from job descriptions
-- **Matching Engine**: Compares candidate skills with job requirements and computes match scores
-- **REST API**: Provides endpoints for candidate analysis, job parsing, and match reporting
+## 📌 Features
 
-### Frontend (React + Tailwind CSS)
-- **Interactive Dashboard**: Clean, modern UI for inputting GitHub usernames and job descriptions
-- **Visual Analytics**: Chart.js integration for displaying match scores and repository insights
-- **Real-time Analysis**: Live updates as you analyze candidates and jobs
-- **Responsive Design**: Works on desktop and mobile devices
+### 🔧 Backend (Python + FastAPI)
+
+- **GitHub Repo Analysis**  
+  Fetches public repositories and extracts:
+  - Programming languages  
+  - Framework indicators  
+  - Commit patterns and activity history  
+
+- **Job Description Parsing (spaCy NLP)**  
+  Automatically identifies key technologies, tools, and required skills from raw job descriptions.
+
+- **Skill Matching Engine**  
+  Computes similarity scores between candidate abilities and job requirements using weighted matching logic.
+
+- **REST API Endpoints**
+  - `/analyze/candidate` — GitHub profile + repo breakdown  
+  - `/analyze/job` — extracted skills from job text  
+  - `/match` — detailed compatibility scoring report  
+
+---
+### 🎨 Frontend (React + Tailwind CSS)
+
+- **Interactive Dashboard**  
+  Clean UI for entering GitHub usernames and pasting job descriptions.
+
+- **Visual Analytics (Chart.js)**  
+  Displays:
+  - Match scores  
+  - Language distribution  
+  - Repo activity summaries  
+
+- **Real-Time Analysis**  
+  Instant feedback as candidate and job info is processed.
+
+- **Fully Responsive**  
+  Optimized for desktop and mobile viewing.
+
+---
 
 ## Tech Stack
 
