@@ -1,4 +1,4 @@
-# 🚀 CommitFit  
+# CommitFit  
 **Automized Candidate to Job Matching from GitHub Activity**  
 
 <p align="center">
@@ -11,9 +11,9 @@ CommitFit is a full-stack application that analyzes GitHub profiles and matches 
 
 ---
 
-## 📌 Features
+## Features
 
-### 🔧 Backend (Python + FastAPI)
+### Backend (Python + FastAPI)
 
 - **GitHub Repo Analysis**  
   Fetches public repositories and extracts:
@@ -33,7 +33,7 @@ CommitFit is a full-stack application that analyzes GitHub profiles and matches 
   - `/match` — detailed compatibility scoring report  
 
 ---
-### 🎨 Frontend (React + Tailwind CSS)
+### Frontend (React + Tailwind CSS)
 
 - **Interactive Dashboard**  
   Clean UI for entering GitHub usernames and pasting job descriptions.
