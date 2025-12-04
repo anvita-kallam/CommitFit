@@ -3,7 +3,7 @@
 
 <p align="center">
   <a href="https://commit-fit.vercel.app/" target="_blank">
-    <img src="https://img.shields.io/badge/Live%20Demo-CommitFit-blue?style=for-the-badge" alt="Live Demo"/>
+    <img src="https://img.shields.io/badge/Live%20Demo-CommitFit-purple?style=for-the-badge" alt="Live Demo"/>
   </a>
 </p>
 
