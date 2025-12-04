@@ -1,6 +1,11 @@
 # 🚀 CommitFit  
 **Automized Candidate to Job Matching from GitHub Activity**  
-https://commit-fit.vercel.app/
+
+<p align="center">
+  <a href="https://commit-fit.vercel.app/" target="_blank">
+    <img src="https://img.shields.io/badge/Live%20Demo-CommitFit-blue?style=for-the-badge" alt="Live Demo"/>
+  </a>
+</p>
 
 CommitFit is a full-stack application that analyzes GitHub profiles and matches them with job requirements to help recruiters and hiring managers quickly identify strong technical candidates. By combining GitHub repository analysis with NLP-driven job description parsing, CommitFit delivers data-backed skill matching through an intuitive, modern interface.
 
