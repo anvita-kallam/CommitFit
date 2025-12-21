@@ -87,12 +87,13 @@ def analyze_repo_languages(repos: List[Dict], github_token: Optional[str] = None
         # Get language data for each repo
         if repo.get('languages_url'):
             try:
-                lang_response = requests.get(repo['languages_url'], headers=headers)
+                lang_response = requests.get(repo['languages_url'], headers=headers, timeout=10)
                 if lang_response.status_code == 200:
                     repo_languages = lang_response.json()
                     for lang, bytes_count in repo_languages.items():
                         language_stats[lang] += bytes_count
-            except:
+            except requests.exceptions.RequestException:
+                # Log but continue processing other repos
                 continue
         
         total_stars += repo.get('stargazers_count', 0)
