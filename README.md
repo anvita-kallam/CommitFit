@@ -55,6 +55,52 @@ CommitFit is a full-stack application that analyzes GitHub profiles and matches 
 ## Tech Stack
 
 - **Backend**: Python 3.11, FastAPI, spaCy, Pandas, Requests
-- **Frontend**: React 18, Tailwind CSS, Chart.js, Axios
-- **Deployment**: Docker, Docker Compose
+- **Frontend**: React 18, TypeScript, Tailwind CSS, Recharts, Axios
+- **Deployment**: Docker, Docker Compose, Railway, Vercel
 - **APIs**: GitHub REST API
+
+## Getting Started
+
+### Prerequisites
+- Python 3.11+
+- Node.js 18+
+- Docker (optional, for containerized deployment)
+
+### Installation
+
+1. Clone the repository:
+```bash
+git clone https://github.com/anvita-kallam/CommitFit.git
+cd CommitFit
+```
+
+2. Backend setup:
+```bash
+cd backend
+python -m venv venv
+source venv/bin/activate  # On Windows: venv\Scripts\activate
+pip install -r requirements.txt
+python -m spacy download en_core_web_sm
+```
+
+3. Frontend setup:
+```bash
+cd frontend
+npm install
+```
+
+### Running Locally
+
+Backend:
+```bash
+cd backend
+uvicorn main:app --reload
+```
+
+Frontend:
+```bash
+cd frontend
+npm start
+```
+
+The app will be available at `http://localhost:3000` and the API at `http://localhost:8000`.
