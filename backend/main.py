@@ -57,7 +57,7 @@ def fetch_user_repos(username: str, github_token: Optional[str] = None) -> List[
         headers["Authorization"] = f"token {github_token}"
     
     try:
-        response = requests.get(url, headers=headers)
+        response = requests.get(url, headers=headers, timeout=10)
         if response.status_code == 403:
             error_data = response.json()
             if "rate limit" in error_data.get("message", "").lower():
@@ -67,6 +67,8 @@ def fetch_user_repos(username: str, github_token: Optional[str] = None) -> List[
                 )
         response.raise_for_status()
         return response.json()
+    except requests.exceptions.Timeout:
+        raise HTTPException(status_code=408, detail="Request to GitHub API timed out. Please try again.")
     except requests.exceptions.RequestException as e:
         raise HTTPException(status_code=400, detail=f"GitHub API error: {str(e)}")
 
@@ -108,7 +110,7 @@ def analyze_repo_languages(repos: List[Dict], github_token: Optional[str] = None
 def extract_skills_from_text(text: str) -> List[str]:
     """Extract technical skills from job description using spaCy"""
     # Expanded tech keywords list with variations
-    tech_keywords = [
+        tech_keywords = [
         # Programming Languages
         'python', 'javascript', 'java', 'c++', 'cpp', 'cplusplus', 'c#', 'csharp',
         'typescript', 'go', 'golang', 'rust', 'swift', 'kotlin', 'scala', 'ruby',
@@ -137,10 +139,10 @@ def extract_skills_from_text(text: str) -> List[str]:
         # Frontend
         'html', 'css', 'sass', 'scss', 'less', 'webpack', 'babel', 'es6',
         'redux', 'mobx', 'zustand'
-    ]
-    
-    found_skills = []
-    text_lower = text.lower()
+        ]
+        
+        found_skills = []
+        text_lower = text.lower()
     
     # Handle special cases with regex patterns (these have special characters)
     # Pattern for c++ variations - handle + which is not a word character
