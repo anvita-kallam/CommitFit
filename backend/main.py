@@ -328,7 +328,23 @@ async def get_match_report(username: Optional[str] = None):
 
 @app.get("/")
 async def root():
-    return {"message": "CommitFit API is running!"}
+    return {
+        "message": "CommitFit API is running!",
+        "version": "1.0.0",
+        "endpoints": {
+            "analyze_candidate": "/analyze_candidate",
+            "analyze_job": "/analyze_job",
+            "match_report": "/match_report"
+        }
+    }
+
+@app.get("/health")
+async def health_check():
+    """Health check endpoint for monitoring"""
+    return {
+        "status": "healthy",
+        "spacy_loaded": nlp is not None
+    }
 
 if __name__ == "__main__":
     import uvicorn
