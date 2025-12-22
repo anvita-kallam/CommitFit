@@ -47,6 +47,14 @@ except OSError:
 class GitHubAnalysisRequest(BaseModel):
     github_username: str
     github_token: Optional[str] = None
+    
+    class Config:
+        json_schema_extra = {
+            "example": {
+                "github_username": "octocat",
+                "github_token": "optional_token_here"
+            }
+        }
 
 class JobAnalysisRequest(BaseModel):
     job_description: str
