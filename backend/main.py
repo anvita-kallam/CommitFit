@@ -163,7 +163,14 @@ def analyze_repo_languages(repos: List[Dict], github_token: Optional[str] = None
     }
 
 def extract_skills_from_text(text: str) -> List[str]:
-    """Extract technical skills from job description using spaCy"""
+    """Extract technical skills from job description using spaCy and keyword matching
+    
+    Args:
+        text: Job description or repository text to extract skills from
+        
+    Returns:
+        List of unique technical skills found in the text
+    """
     if not text or not text.strip():
         return []
     
