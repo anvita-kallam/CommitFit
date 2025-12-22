@@ -72,20 +72,29 @@ export default function App() {
     
     try {
       // Analyze candidate
-      const candidateResponse = await axios.post(`${API_BASE_URL}/analyze_candidate`, {
-        github_username: currentUsername,
-        github_token: accessToken.trim() || null
-      });
+      const candidateResponse = await axios.post(
+        `${API_BASE_URL}/analyze_candidate`,
+        {
+          github_username: currentUsername,
+          github_token: accessToken.trim() || null
+        },
+        { timeout: 30000 } // 30 second timeout
+      );
       
       // Analyze job
-      await axios.post(`${API_BASE_URL}/analyze_job`, {
-        job_description: jobDescription.trim(),
-        github_token: accessToken.trim() || null
-      });
+      await axios.post(
+        `${API_BASE_URL}/analyze_job`,
+        {
+          job_description: jobDescription.trim(),
+          github_token: accessToken.trim() || null
+        },
+        { timeout: 30000 }
+      );
       
       // Get match report - pass username to ensure we get the right candidate data
       const response = await axios.get(`${API_BASE_URL}/match_report`, {
-        params: { username: currentUsername }
+        params: { username: currentUsername },
+        timeout: 30000
       });
       
       // Only set analysis if username hasn't changed during the async operation
@@ -94,7 +103,13 @@ export default function App() {
         setShowSuccess(true);
       }
     } catch (err: any) {
-      setError(`Error: ${err.response?.data?.detail || err.message}`);
+      if (err.code === 'ECONNABORTED') {
+        setError('Request timed out. Please try again.');
+      } else if (err.response?.status === 429) {
+        setError('Rate limit exceeded. Please wait a moment and try again.');
+      } else {
+        setError(`Error: ${err.response?.data?.detail || err.message}`);
+      }
     } finally {
       setIsAnalyzing(false);
     }
