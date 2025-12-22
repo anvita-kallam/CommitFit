@@ -79,7 +79,18 @@ class MatchReport(BaseModel):
 
 # GitHub API functions
 def fetch_user_repos(username: str, github_token: Optional[str] = None) -> List[Dict]:
-    """Fetch public repositories for a GitHub user"""
+    """Fetch public repositories for a GitHub user
+    
+    Args:
+        username: GitHub username to fetch repositories for
+        github_token: Optional GitHub personal access token for higher rate limits
+        
+    Returns:
+        List of repository dictionaries from GitHub API
+        
+    Raises:
+        HTTPException: If the request fails or rate limit is exceeded
+    """
     url = f"https://api.github.com/users/{username}/repos"
     headers = {"Accept": "application/vnd.github.v3+json"}
     
