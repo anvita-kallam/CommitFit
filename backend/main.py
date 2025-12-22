@@ -38,8 +38,9 @@ app.add_middleware(
 # Load spaCy model for NLP
 try:
     nlp = spacy.load("en_core_web_sm")
+    logger.info("spaCy model loaded successfully")
 except OSError:
-    print("Please install spaCy model: python -m spacy download en_core_web_sm")
+    logger.warning("Please install spaCy model: python -m spacy download en_core_web_sm")
     nlp = None
 
 # Pydantic models
