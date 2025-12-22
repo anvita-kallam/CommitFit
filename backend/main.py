@@ -261,7 +261,15 @@ def extract_skills_from_text(text: str) -> List[str]:
     return list(set(found_skills))
 
 def calculate_match_score(candidate_skills: List[str], job_skills: List[str]) -> float:
-    """Calculate match score between candidate and job skills"""
+    """Calculate match score between candidate and job skills
+    
+    Args:
+        candidate_skills: List of skills the candidate has
+        job_skills: List of skills required for the job
+        
+    Returns:
+        Match score as a percentage (0-100)
+    """
     if not job_skills:
         return 0.0
     if not candidate_skills:
