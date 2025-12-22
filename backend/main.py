@@ -115,7 +115,15 @@ def fetch_user_repos(username: str, github_token: Optional[str] = None) -> List[
         raise HTTPException(status_code=400, detail=f"GitHub API error: {str(e)}")
 
 def analyze_repo_languages(repos: List[Dict], github_token: Optional[str] = None) -> Dict:
-    """Analyze programming languages from repositories"""
+    """Analyze programming languages from repositories
+    
+    Args:
+        repos: List of repository dictionaries from GitHub API
+        github_token: Optional GitHub token for authenticated requests
+        
+    Returns:
+        Dictionary containing language statistics, stars, forks, and repo count
+    """
     language_stats = Counter()
     total_stars = 0
     total_forks = 0
