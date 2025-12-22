@@ -59,6 +59,14 @@ class GitHubAnalysisRequest(BaseModel):
 class JobAnalysisRequest(BaseModel):
     job_description: str
     github_token: Optional[str] = None
+    
+    class Config:
+        json_schema_extra = {
+            "example": {
+                "job_description": "Looking for a Python developer with React experience...",
+                "github_token": "optional_token_here"
+            }
+        }
 
 class MatchReport(BaseModel):
     username: str
