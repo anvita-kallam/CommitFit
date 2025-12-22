@@ -8,6 +8,14 @@ import re
 import spacy
 from collections import Counter
 import json
+import logging
+
+# Configure logging
+logging.basicConfig(
+    level=logging.INFO,
+    format='%(asctime)s - %(name)s - %(levelname)s - %(message)s'
+)
+logger = logging.getLogger(__name__)
 
 app = FastAPI(title="CommitFit API", version="1.0.0")
 
