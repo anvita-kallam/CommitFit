@@ -223,9 +223,9 @@ job_data = {}
 async def analyze_candidate(request: GitHubAnalysisRequest):
     """Analyze GitHub candidate repositories"""
     try:
-        print(f"🔍 Analyzing candidate: {request.github_username}")
+        logger.info(f"Analyzing candidate: {request.github_username}")
         repos = fetch_user_repos(request.github_username, request.github_token)
-        print(f"📦 Found {len(repos)} repositories for {request.github_username}")
+        logger.info(f"Found {len(repos)} repositories for {request.github_username}")
         repo_insights = analyze_repo_languages(repos, request.github_token)
         
         # Extract skills from repository languages and names
@@ -243,8 +243,8 @@ async def analyze_candidate(request: GitHubAnalysisRequest):
             'skills': candidate_skills,
             'repo_insights': repo_insights
         }
-        print(f"✅ Stored data for {request.github_username} with {len(candidate_skills)} skills")
-        print(f"📊 Current candidates in memory: {list(candidate_data.keys())}")
+        logger.info(f"Stored data for {request.github_username} with {len(candidate_skills)} skills")
+        logger.debug(f"Current candidates in memory: {list(candidate_data.keys())}")
         
         return {
             "status": "success",
