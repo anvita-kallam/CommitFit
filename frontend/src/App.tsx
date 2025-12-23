@@ -43,6 +43,12 @@ export default function App() {
 
   useEffect(() => {
     const handleKeyboard = (e: KeyboardEvent) => {
+      // Prevent keyboard shortcuts when user is typing in input fields
+      const target = e.target as HTMLElement;
+      if (target.tagName === 'INPUT' || target.tagName === 'TEXTAREA') {
+        return;
+      }
+      
       if ((e.ctrlKey || e.metaKey) && e.key === 'Enter') {
         if (username && jobDescription) {
           handleAnalyzeBoth();
