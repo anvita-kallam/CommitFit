@@ -16,6 +16,10 @@ interface AnalysisCardsProps {
   isAnalyzing: boolean;
 }
 
+/**
+ * AnalysisCards component for inputting GitHub username and job description
+ * Provides a clean interface for users to enter analysis parameters
+ */
 export function AnalysisCards({
   username,
   setUsername,
