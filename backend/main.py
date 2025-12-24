@@ -252,9 +252,12 @@ async def analyze_candidate(request: GitHubAnalysisRequest):
             "repo_insights": repo_insights,
             "username": request.github_username
         }
+    except HTTPException:
+        # Re-raise HTTP exceptions as-is
+        raise
     except Exception as e:
-        print(f"❌ Error analyzing {request.github_username}: {str(e)}")
-        raise HTTPException(status_code=500, detail=str(e))
+        logger.error(f"Error analyzing {request.github_username}: {str(e)}", exc_info=True)
+        raise HTTPException(status_code=500, detail=f"Internal server error: {str(e)}")
 
 @app.post("/analyze_job")
 async def analyze_job(request: JobAnalysisRequest):
