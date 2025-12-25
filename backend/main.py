@@ -275,8 +275,11 @@ async def analyze_job(request: JobAnalysisRequest):
             "status": "success",
             "job_skills": job_skills
         }
+    except HTTPException:
+        raise
     except Exception as e:
-        raise HTTPException(status_code=500, detail=str(e))
+        logger.error(f"Error analyzing job description: {str(e)}", exc_info=True)
+        raise HTTPException(status_code=500, detail=f"Internal server error: {str(e)}")
 
 @app.get("/match_report")
 async def get_match_report(username: Optional[str] = None):
