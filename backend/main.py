@@ -208,12 +208,21 @@ def calculate_match_score(candidate_skills: List[str], job_skills: List[str]) ->
     """Calculate match score between candidate and job skills"""
     if not job_skills:
         return 0.0
+    if not candidate_skills:
+        return 0.0
     
-    candidate_skills_lower = [skill.lower() for skill in candidate_skills]
-    job_skills_lower = [skill.lower() for skill in job_skills]
+    candidate_skills_lower = [skill.lower().strip() for skill in candidate_skills if skill]
+    job_skills_lower = [skill.lower().strip() for skill in job_skills if skill]
+    
+    # Remove empty strings after stripping
+    candidate_skills_lower = [s for s in candidate_skills_lower if s]
+    job_skills_lower = [s for s in job_skills_lower if s]
+    
+    if not job_skills_lower:
+        return 0.0
     
     matching = set(candidate_skills_lower) & set(job_skills_lower)
-    return len(matching) / len(job_skills_lower) * 100
+    return round(len(matching) / len(job_skills_lower) * 100, 2)
 
 # Global storage for analysis results
 candidate_data = {}
