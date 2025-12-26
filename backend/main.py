@@ -157,8 +157,11 @@ def analyze_repo_languages(repos: List[Dict], github_token: Optional[str] = None
         total_forks += repo.get('forks_count', 0)
         total_size += repo.get('size', 0)
     
-    # Sort languages by usage (bytes) in descending order
+    # Sort languages by usage in descending order, limit to top 10
     sorted_languages = dict(language_stats.most_common(10))
+    
+    # Calculate total for percentage calculation
+    total_language_usage = sum(sorted_languages.values()) if sorted_languages else 0
     
     return {
         'languages': sorted_languages,
