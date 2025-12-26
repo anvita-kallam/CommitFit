@@ -387,6 +387,8 @@ async def analyze_job(request: JobAnalysisRequest):
         }
         
         logger.info(f"Extracted {len(job_skills)} unique skills from job description")
+        if job_skills:
+            logger.debug(f"Top 5 job skills: {job_skills[:5]}")
         
         return {
             "status": "success",
