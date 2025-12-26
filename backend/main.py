@@ -231,6 +231,9 @@ job_data = {}
 @app.post("/analyze_candidate")
 async def analyze_candidate(request: GitHubAnalysisRequest):
     """Analyze GitHub candidate repositories"""
+    if not request.github_username or not request.github_username.strip():
+        raise HTTPException(status_code=400, detail="GitHub username is required")
+    
     try:
         logger.info(f"Analyzing candidate: {request.github_username}")
         repos = fetch_user_repos(request.github_username, request.github_token)
