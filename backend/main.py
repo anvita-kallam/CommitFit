@@ -352,6 +352,7 @@ async def analyze_candidate(request: GitHubAnalysisRequest):
         
         logger.info(f"Stored data for {request.github_username} with {len(candidate_skills)} skills")
         logger.debug(f"Current candidates in memory: {list(candidate_data.keys())}")
+        logger.debug(f"Top 5 skills: {candidate_skills[:5]}")
         
         return {
             "status": "success",
