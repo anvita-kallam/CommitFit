@@ -142,8 +142,13 @@ def analyze_repo_languages(repos: List[Dict], github_token: Optional[str] = None
                 lang_response = requests.get(repo['languages_url'], headers=headers, timeout=10)
                 if lang_response.status_code == 200:
                     repo_languages = lang_response.json()
+                    total_bytes = sum(repo_languages.values())
+                    # Normalize by percentage to avoid bias from large repos
                     for lang, bytes_count in repo_languages.items():
-                        language_stats[lang] += bytes_count
+                        if total_bytes > 0:
+                            language_stats[lang] += bytes_count / total_bytes
+                        else:
+                            language_stats[lang] += bytes_count
             except requests.exceptions.RequestException:
                 # Log but continue processing other repos
                 continue
