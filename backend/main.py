@@ -99,6 +99,8 @@ def fetch_user_repos(username: str, github_token: Optional[str] = None) -> List[
         headers["Authorization"] = f"token {github_token}"
     
     try:
+        # Add User-Agent header to comply with GitHub API best practices
+        headers["User-Agent"] = "CommitFit/1.0"
         response = requests.get(url, headers=headers, timeout=10)
         if response.status_code == 403:
             error_data = response.json()
