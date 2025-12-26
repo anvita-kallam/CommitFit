@@ -274,6 +274,9 @@ async def analyze_candidate(request: GitHubAnalysisRequest):
 @app.post("/analyze_job")
 async def analyze_job(request: JobAnalysisRequest):
     """Analyze job description and extract required skills"""
+    if not request.job_description or not request.job_description.strip():
+        raise HTTPException(status_code=400, detail="Job description is required")
+    
     try:
         job_skills = extract_skills_from_text(request.job_description)
         
