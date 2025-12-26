@@ -1,5 +1,20 @@
 # Changelog
 
+## [2025-12-31] - Year-End Improvements
+
+### Backend Enhancements
+- Improved error handling with proper exception propagation
+- Added structured logging throughout the application
+- Enhanced input validation for all endpoints
+- Improved match score calculation with edge case handling
+- Added health check endpoint for monitoring
+
+### Frontend Improvements
+- Enhanced error handling with timeout support
+- Improved keyboard shortcut handling
+- Better typography and visual design
+- Fixed analysis state management when username changes
+
 ## [2024-10-19] - Frontend Enhancement Day
 
 ### 🚀 Major Frontend Improvements
