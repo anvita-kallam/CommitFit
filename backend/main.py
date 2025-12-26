@@ -131,7 +131,7 @@ def analyze_repo_languages(repos: List[Dict], github_token: Optional[str] = None
     total_forks = 0
     total_size = 0
     
-    headers = {}
+    headers = {"User-Agent": "CommitFit/1.0"}
     if github_token:
         headers["Authorization"] = f"token {github_token}"
     
