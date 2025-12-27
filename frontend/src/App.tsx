@@ -137,6 +137,7 @@ export default function App() {
     setAnalysis(null);
     setShowSuccess(false);
     setError('');
+    setRetryCount(0);
   };
 
   return (
