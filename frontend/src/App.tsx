@@ -32,6 +32,7 @@ export default function App() {
   const [isAnalyzing, setIsAnalyzing] = useState(false);
   const [showSuccess, setShowSuccess] = useState(false);
   const [error, setError] = useState('');
+  const [retryCount, setRetryCount] = useState(0);
 
   // Clear analysis when username changes
   useEffect(() => {
@@ -73,6 +74,8 @@ export default function App() {
     setError('');
     // Clear previous analysis before starting new analysis
     setAnalysis(null);
+    // Reset retry count for new analysis
+    if (retryCount > 0) setRetryCount(0);
     
     const currentUsername = username.trim();
     
@@ -113,8 +116,14 @@ export default function App() {
         setError('Request timed out. Please try again.');
       } else if (err.response?.status === 429) {
         setError('Rate limit exceeded. Please wait a moment and try again.');
+      } else if (err.response?.status >= 500 && retryCount < 2) {
+        // Retry on server errors
+        setRetryCount(retryCount + 1);
+        setTimeout(() => handleAnalyzeBoth(), 2000);
+        return;
       } else {
         setError(`Error: ${err.response?.data?.detail || err.message}`);
+        setRetryCount(0);
       }
     } finally {
       setIsAnalyzing(false);
