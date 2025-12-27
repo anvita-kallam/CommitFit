@@ -225,8 +225,12 @@ def calculate_match_score(candidate_skills: List[str], job_skills: List[str]) ->
     return round(len(matching) / len(job_skills_lower) * 100, 2)
 
 # Global storage for analysis results
+# Note: In production, consider using Redis or a database for persistence
 candidate_data = {}
 job_data = {}
+
+# Maximum number of candidates to keep in memory (prevent memory leaks)
+MAX_CANDIDATES_IN_MEMORY = 100
 
 @app.post("/analyze_candidate")
 async def analyze_candidate(request: GitHubAnalysisRequest):
@@ -255,6 +259,13 @@ async def analyze_candidate(request: GitHubAnalysisRequest):
             'skills': candidate_skills,
             'repo_insights': repo_insights
         }
+        
+        # Clean up old candidates if we exceed the limit (FIFO)
+        if len(candidate_data) > MAX_CANDIDATES_IN_MEMORY:
+            oldest_key = next(iter(candidate_data))
+            del candidate_data[oldest_key]
+            logger.debug(f"Removed oldest candidate {oldest_key} from memory")
+        
         logger.info(f"Stored data for {request.github_username} with {len(candidate_skills)} skills")
         logger.debug(f"Current candidates in memory: {list(candidate_data.keys())}")
         
