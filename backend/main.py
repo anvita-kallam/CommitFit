@@ -383,7 +383,9 @@ async def health_check():
     """Health check endpoint for monitoring"""
     return {
         "status": "healthy",
-        "spacy_loaded": nlp is not None
+        "spacy_loaded": nlp is not None,
+        "candidates_in_memory": len(candidate_data),
+        "job_data_exists": bool(job_data)
     }
 
 if __name__ == "__main__":
