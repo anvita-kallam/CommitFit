@@ -8,6 +8,7 @@ interface QuickStartProps {
   onClearAll: () => void;
 }
 
+// Sample GitHub usernames for quick testing
 const sampleUsers = [
   '@torvalds',
   '@octocat',
