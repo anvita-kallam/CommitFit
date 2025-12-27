@@ -142,6 +142,7 @@ export default function App() {
     setShowSuccess(false);
     setError('');
     setRetryCount(0);
+    setLastAnalyzedUsername('');
   };
 
   return (
