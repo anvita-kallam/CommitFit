@@ -34,6 +34,7 @@ export default function App() {
   const [showSuccess, setShowSuccess] = useState(false);
   const [error, setError] = useState('');
   const [retryCount, setRetryCount] = useState(0);
+  const [lastAnalyzedUsername, setLastAnalyzedUsername] = useState<string>('');
 
   // Clear analysis when username changes
   useEffect(() => {
@@ -112,6 +113,7 @@ export default function App() {
       if (username.trim() === currentUsername && response.data) {
         setAnalysis(response.data);
         setShowSuccess(true);
+        setLastAnalyzedUsername(currentUsername);
       }
     } catch (err: any) {
       if (err.code === 'ECONNABORTED') {
