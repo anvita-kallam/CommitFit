@@ -104,3 +104,23 @@ npm start
 ```
 
 The app will be available at `http://localhost:3000` and the API at `http://localhost:8000`.
+
+### Using Docker
+
+```bash
+docker-compose up --build
+```
+
+This will start both the backend and frontend services.
+
+## API Endpoints
+
+- `GET /` - API status and available endpoints
+- `GET /health` - Health check endpoint
+- `POST /analyze_candidate` - Analyze a GitHub user's repositories
+- `POST /analyze_job` - Extract skills from a job description
+- `GET /match_report` - Get match report between candidate and job
+
+## Contributing
+
+Contributions are welcome! Please feel free to submit a Pull Request.
