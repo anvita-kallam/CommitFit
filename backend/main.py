@@ -344,11 +344,12 @@ async def analyze_candidate(request: GitHubAnalysisRequest):
             'repo_insights': repo_insights
         }
         
-        # Clean up old candidates if we exceed the limit (FIFO)
-        if len(candidate_data) > MAX_CANDIDATES_IN_MEMORY:
-            oldest_key = next(iter(candidate_data))
-            del candidate_data[oldest_key]
-            logger.debug(f"Removed oldest candidate {oldest_key} from memory")
+    # Clean up old candidates if we exceed the limit (FIFO)
+    # This prevents memory leaks in long-running services
+    if len(candidate_data) > MAX_CANDIDATES_IN_MEMORY:
+        oldest_key = next(iter(candidate_data))
+        del candidate_data[oldest_key]
+        logger.info(f"Memory limit reached, removed oldest candidate {oldest_key} from memory")
         
         logger.info(f"Stored data for {request.github_username} with {len(candidate_skills)} skills")
         logger.debug(f"Current candidates in memory: {list(candidate_data.keys())}")
