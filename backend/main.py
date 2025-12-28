@@ -180,9 +180,9 @@ def extract_skills_from_text(text: str) -> List[str]:
         if keyword in ['c++', 'cpp', 'cplusplus', 'c#', 'csharp']:
             continue
             
-        # Use word boundaries for better matching
+        # Use word boundaries for better matching (case-insensitive)
         pattern = r'\b' + re.escape(keyword) + r'\b'
-        if re.search(pattern, text_lower):
+        if re.search(pattern, text_lower, re.IGNORECASE):
             # Normalize the keyword (use canonical form)
             if keyword in ['cpp', 'cplusplus']:
                 found_skills.append('c++')
