@@ -122,9 +122,10 @@ export default function App() {
       } else if (err.response?.status === 429) {
         setError('Rate limit exceeded. Please wait a moment and try again.');
       } else if (err.response?.status >= 500 && retryCount < 2) {
-        // Retry on server errors
+        // Retry on server errors with exponential backoff
+        const delay = Math.pow(2, retryCount) * 1000; // 1s, 2s, 4s...
         setRetryCount(retryCount + 1);
-        setTimeout(() => handleAnalyzeBoth(), 2000);
+        setTimeout(() => handleAnalyzeBoth(), delay);
         return;
       } else {
         setError(`Error: ${err.response?.data?.detail || err.message}`);
