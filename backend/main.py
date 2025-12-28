@@ -163,7 +163,7 @@ def extract_skills_from_text(text: str) -> List[str]:
         r'\bcpp\b',              # cpp as whole word
         r'\bcplusplus\b'         # cplusplus as whole word
     ]
-    if any(re.search(pattern, text_lower) for pattern in cpp_patterns):
+    if any(re.search(pattern, text_lower, re.IGNORECASE) for pattern in cpp_patterns):
         found_skills.append('c++')
     
     # Pattern for c# variations - handle # which is not a word character
@@ -171,7 +171,7 @@ def extract_skills_from_text(text: str) -> List[str]:
         r'(?<!\w)c#(?!\w)',      # c# with word boundaries (handles #)
         r'\bcsharp\b'            # csharp as whole word
     ]
-    if any(re.search(pattern, text_lower) for pattern in csharp_patterns):
+    if any(re.search(pattern, text_lower, re.IGNORECASE) for pattern in csharp_patterns):
         found_skills.append('c#')
     
     # Check for all other keywords
