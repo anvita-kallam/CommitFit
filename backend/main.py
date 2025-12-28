@@ -456,9 +456,11 @@ async def get_match_report(username: Optional[str] = None):
     matching_skills = list(set(candidate_skills_lower) & set(job_skills_lower))
     missing_skills = list(set(job_skills_lower) - set(candidate_skills_lower))
     
-    # Sort for consistent output
+    # Sort for consistent output and better UX
     matching_skills.sort()
     missing_skills.sort()
+    
+    logger.debug(f"Found {len(matching_skills)} matching skills and {len(missing_skills)} missing skills")
     
     # Ensure all lists are properly formatted
     return MatchReport(
