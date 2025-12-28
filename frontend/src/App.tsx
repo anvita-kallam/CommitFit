@@ -42,6 +42,7 @@ export default function App() {
       setAnalysis(null);
       setShowSuccess(false);
       setError(''); // Also clear any errors when username changes
+      setRetryCount(0); // Reset retry count on username change
     }
   }, [username, analysis]);
 
