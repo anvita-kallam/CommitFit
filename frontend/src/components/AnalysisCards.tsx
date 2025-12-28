@@ -44,7 +44,9 @@ export function AnalysisCards({
         >
           <div className="flex items-center gap-2 mb-4">
             <Github className="w-5 h-5" style={{ color: 'rgba(0, 31, 63, 1)' }} />
-            <h3 style={{ color: 'rgba(0, 31, 63, 1)' }}>GitHub Profile Analysis</h3>
+            <h3 className="font-semibold" style={{ color: 'rgba(0, 31, 63, 1)' }}>
+              GitHub Profile Analysis
+            </h3>
           </div>
 
           <div className="space-y-4">
