@@ -472,13 +472,16 @@ async def get_match_report(username: Optional[str] = None):
 
 @app.get("/")
 async def root():
+    """Root endpoint providing API information"""
     return {
         "message": "CommitFit API is running!",
         "version": "1.0.0",
         "endpoints": {
             "analyze_candidate": "/analyze_candidate",
             "analyze_job": "/analyze_job",
-            "match_report": "/match_report"
+            "match_report": "/match_report",
+            "health": "/health",
+            "docs": "/docs"
         }
     }
 
