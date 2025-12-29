@@ -39,8 +39,9 @@ export default function App() {
     if (analysis && analysis.username !== username.trim()) {
       setAnalysis(null);
       setShowSuccess(false);
+      setError(''); // Also clear any errors when username changes
     }
-  }, [username]);
+  }, [username, analysis]);
 
   useEffect(() => {
     const handleKeyboard = (e: KeyboardEvent) => {
