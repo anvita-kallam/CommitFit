@@ -175,7 +175,13 @@ export default function App() {
               CommitFit
             </h1>
           </div>
-          <p className="mb-2" style={{ color: 'rgba(0, 51, 102, 0.95)' }}>
+          <p 
+            className="mb-2 text-lg" 
+            style={{ 
+              color: 'rgba(0, 51, 102, 0.95)',
+              fontWeight: 500
+            }}
+          >
             Analyze GitHub profiles and match them with job requirements
           </p>
         </header>
