@@ -114,12 +114,16 @@ def analyze_repo_languages(repos: List[Dict], github_token: Optional[str] = None
         total_forks += repo.get('forks_count', 0)
         total_size += repo.get('size', 0)
     
+    # Sort languages by usage (bytes) in descending order
+    sorted_languages = dict(language_stats.most_common(10))
+    
     return {
-        'languages': dict(language_stats.most_common(10)),
+        'languages': sorted_languages,
         'total_stars': total_stars,
         'total_forks': total_forks,
         'total_size': total_size,
-        'repo_count': len(repos)
+        'repo_count': len(repos),
+        'top_language': list(sorted_languages.keys())[0] if sorted_languages else None
     }
 
 def extract_skills_from_text(text: str) -> List[str]:
