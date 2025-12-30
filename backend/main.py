@@ -377,9 +377,12 @@ async def analyze_job(request: JobAnalysisRequest):
     try:
         job_skills = extract_skills_from_text(request.job_description)
         
-        # Normalize job skills
+        # Normalize job skills: lowercase, strip whitespace, remove empty strings
         job_skills = [skill.strip().lower() for skill in job_skills if skill and skill.strip()]
         job_skills = list(set(job_skills))
+        
+        # Sort for consistent output
+        job_skills.sort()
         
         job_data['current_job'] = {
             'skills': job_skills,
