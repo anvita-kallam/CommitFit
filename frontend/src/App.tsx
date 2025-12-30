@@ -201,6 +201,7 @@ export default function App() {
               borderColor: 'rgba(255, 0, 0, 0.5)',
               boxShadow: '0 8px 32px rgba(0, 0, 0, 0.2), 0 2px 8px rgba(0, 0, 0, 0.1)',
             }}
+            role="alert"
           >
             <AlertCircle className="h-4 w-4" style={{ color: 'rgba(0, 31, 63, 1)' }} />
             <AlertDescription style={{ color: 'rgba(0, 31, 63, 1)' }}>
