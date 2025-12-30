@@ -306,15 +306,22 @@ async def analyze_job(request: JobAnalysisRequest):
     try:
         job_skills = extract_skills_from_text(request.job_description)
         
+        # Normalize job skills
+        job_skills = [skill.strip().lower() for skill in job_skills if skill and skill.strip()]
+        job_skills = list(set(job_skills))
+        
         job_data['current_job'] = {
             'skills': job_skills,
             'description': request.job_description,
             'github_token': request.github_token
         }
         
+        logger.info(f"Extracted {len(job_skills)} unique skills from job description")
+        
         return {
             "status": "success",
-            "job_skills": job_skills
+            "job_skills": job_skills,
+            "skill_count": len(job_skills)
         }
     except HTTPException:
         raise
