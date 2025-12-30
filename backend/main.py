@@ -467,14 +467,17 @@ async def get_match_report(username: Optional[str] = None):
     
     logger.debug(f"Found {len(matching_skills)} matching skills and {len(missing_skills)} missing skills")
     
-    # Ensure all lists are properly formatted
+    # Ensure all lists are properly formatted and deduplicated
+    unique_candidate_skills = sorted(list(set(candidate_skills)))
+    unique_job_skills = sorted(list(set(job_skills)))
+    
     return MatchReport(
         username=latest_candidate_username,
         match_score=round(match_score, 2),
         matching_skills=matching_skills,
         missing_skills=missing_skills,
-        candidate_skills=sorted(list(set(candidate_skills))),
-        job_skills=sorted(list(set(job_skills))),
+        candidate_skills=unique_candidate_skills,
+        job_skills=unique_job_skills,
         repo_insights=latest_candidate.get('repo_insights', {})
     )
 
