@@ -359,7 +359,8 @@ async def analyze_candidate(request: GitHubAnalysisRequest):
             "status": "success",
             "candidate_skills": candidate_skills,
             "repo_insights": repo_insights,
-            "username": request.github_username
+            "username": request.github_username,
+            "skill_count": len(candidate_skills)
         }
     except HTTPException:
         # Re-raise HTTP exceptions as-is
