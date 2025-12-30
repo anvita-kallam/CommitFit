@@ -79,7 +79,7 @@ export default function App() {
     // Clear previous analysis before starting new analysis
     setAnalysis(null);
     // Reset retry count for new analysis
-    if (retryCount > 0) setRetryCount(0);
+    setRetryCount(0);
     
     const currentUsername = username.trim();
     
