@@ -108,9 +108,10 @@ export default function App() {
       });
       
       // Only set analysis if username hasn't changed during the async operation
-      if (username.trim() === currentUsername) {
+      if (username.trim() === currentUsername && response.data) {
         setAnalysis(response.data);
         setShowSuccess(true);
+        logger?.info?.('Analysis completed successfully');
       }
     } catch (err: any) {
       if (err.code === 'ECONNABORTED') {
