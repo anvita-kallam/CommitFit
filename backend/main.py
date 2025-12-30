@@ -372,11 +372,20 @@ async def get_match_report(username: Optional[str] = None):
     match_score = calculate_match_score(candidate_skills, job_skills)
     logger.info(f"Match score calculated: {match_score}%")
     
-    candidate_skills_lower = [skill.lower() for skill in candidate_skills]
-    job_skills_lower = [skill.lower() for skill in job_skills]
+    # Skills are already normalized to lowercase
+    candidate_skills_lower = [skill.lower().strip() for skill in candidate_skills if skill]
+    job_skills_lower = [skill.lower().strip() for skill in job_skills if skill]
+    
+    # Remove empty strings
+    candidate_skills_lower = [s for s in candidate_skills_lower if s]
+    job_skills_lower = [s for s in job_skills_lower if s]
     
     matching_skills = list(set(candidate_skills_lower) & set(job_skills_lower))
     missing_skills = list(set(job_skills_lower) - set(candidate_skills_lower))
+    
+    # Sort for consistent output
+    matching_skills.sort()
+    missing_skills.sort()
     
     return MatchReport(
         username=latest_candidate_username,
