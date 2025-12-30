@@ -397,7 +397,8 @@ async def analyze_job(request: JobAnalysisRequest):
         return {
             "status": "success",
             "job_skills": job_skills,
-            "skill_count": len(job_skills)
+            "skill_count": len(job_skills),
+            "top_skills": job_skills[:5] if len(job_skills) >= 5 else job_skills
         }
     except HTTPException:
         raise
