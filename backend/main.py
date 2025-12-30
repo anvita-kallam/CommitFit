@@ -266,6 +266,8 @@ async def analyze_candidate(request: GitHubAnalysisRequest):
             additional_skills = extract_skills_from_text(repo_text)
             candidate_skills.extend(additional_skills)
         
+        # Remove duplicates and empty strings, normalize
+        candidate_skills = [skill.strip().lower() for skill in candidate_skills if skill and skill.strip()]
         candidate_skills = list(set(candidate_skills))
         
         candidate_data[request.github_username] = {
