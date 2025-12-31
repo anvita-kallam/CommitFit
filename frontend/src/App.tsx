@@ -111,7 +111,6 @@ export default function App() {
       if (username.trim() === currentUsername && response.data) {
         setAnalysis(response.data);
         setShowSuccess(true);
-        logger?.info?.('Analysis completed successfully');
       }
     } catch (err: any) {
       if (err.code === 'ECONNABORTED') {
