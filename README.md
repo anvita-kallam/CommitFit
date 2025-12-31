@@ -121,6 +121,14 @@ This will start both the backend and frontend services.
 - `POST /analyze_job` - Extract skills from a job description
 - `GET /match_report` - Get match report between candidate and job
 
+## License
+
+This project is open source and available under the MIT License.
+
 ## Contributing
 
 Contributions are welcome! Please feel free to submit a Pull Request.
+
+## Support
+
+For issues and questions, please open an issue on the GitHub repository.
