@@ -387,13 +387,14 @@ async def get_match_report(username: Optional[str] = None):
     matching_skills.sort()
     missing_skills.sort()
     
+    # Ensure all lists are properly formatted
     return MatchReport(
         username=latest_candidate_username,
-        match_score=match_score,
+        match_score=round(match_score, 2),
         matching_skills=matching_skills,
         missing_skills=missing_skills,
-        candidate_skills=candidate_skills,
-        job_skills=job_skills,
+        candidate_skills=sorted(list(set(candidate_skills))),
+        job_skills=sorted(list(set(job_skills))),
         repo_insights=latest_candidate.get('repo_insights', {})
     )
 
