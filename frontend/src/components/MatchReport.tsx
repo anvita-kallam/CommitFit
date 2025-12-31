@@ -342,7 +342,7 @@ ${analysis.missing_skills.length > 0 ? analysis.missing_skills.map(skill => `- C
         {/* Visual Charts */}
         <div className="grid lg:grid-cols-2 gap-6">
           {/* Repository Stats Bar Chart */}
-          <div className="space-y-4">
+        <div className="space-y-4">
             <h4 className="text-lg font-medium" style={{ color: 'rgba(50, 30, 90, 1)' }}>
               Repository Statistics
             </h4>
@@ -373,8 +373,8 @@ ${analysis.missing_skills.length > 0 ? analysis.missing_skills.map(skill => `- C
                   </Bar>
                 </BarChart>
               </ResponsiveContainer>
-            </div>
-          </div>
+                </div>
+              </div>
 
           {/* Language Distribution Pie Chart */}
           {languageData.length > 0 && (
@@ -456,7 +456,7 @@ ${analysis.missing_skills.length > 0 ? analysis.missing_skills.map(skill => `- C
             <li className="flex items-start gap-2" style={{ color: 'rgba(0, 31, 63, 1)' }}>
               <TrendingUp className="w-4 h-4 mt-1 flex-shrink-0" style={{ color: 'rgba(70, 130, 180, 1)' }} />
               <span className="text-sm">Good repository engagement ({analysis.repo_insights.total_stars} stars)</span>
-            </li>
+              </li>
           </ul>
         </Card>
 
