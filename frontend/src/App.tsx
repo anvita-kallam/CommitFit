@@ -172,7 +172,7 @@ export default function App() {
               </svg>
             </div>
             <h1 
-              className="font-bold text-5xl" 
+              className="font-bold text-5xl mb-2" 
               style={{ 
                 color: 'rgba(0, 31, 63, 1)', 
                 textShadow: '0 2px 8px rgba(0, 0, 0, 0.2)' 
