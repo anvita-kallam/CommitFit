@@ -504,12 +504,14 @@ async def health_check():
     Returns:
         Dictionary with health status and system information
     """
+    import time
     return {
         "status": "healthy",
         "spacy_loaded": nlp is not None,
         "candidates_in_memory": len(candidate_data),
         "job_data_exists": bool(job_data),
-        "memory_usage_percent": round((len(candidate_data) / MAX_CANDIDATES_IN_MEMORY) * 100, 2) if MAX_CANDIDATES_IN_MEMORY > 0 else 0
+        "memory_usage_percent": round((len(candidate_data) / MAX_CANDIDATES_IN_MEMORY) * 100, 2) if MAX_CANDIDATES_IN_MEMORY > 0 else 0,
+        "timestamp": time.time()
     }
 
 if __name__ == "__main__":
