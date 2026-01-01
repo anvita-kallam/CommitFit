@@ -19,7 +19,7 @@ logger = logging.getLogger(__name__)
 
 app = FastAPI(
     title="CommitFit API",
-    version="1.0.0",
+    version="1.1.0",
     description="API for analyzing GitHub profiles and matching them with job requirements",
     docs_url="/docs",
     redoc_url="/redoc"
