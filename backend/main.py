@@ -374,7 +374,8 @@ async def analyze_candidate(request: GitHubAnalysisRequest):
         # Re-raise HTTP exceptions as-is
         raise
     except Exception as e:
-        logger.error(f"Error analyzing {request.github_username}: {str(e)}", exc_info=True)
+        username = request.github_username.strip() if request.github_username else "unknown"
+        logger.error(f"Error analyzing {username}: {str(e)}", exc_info=True)
         raise HTTPException(status_code=500, detail=f"Internal server error: {str(e)}")
 
 @app.post("/analyze_job")
