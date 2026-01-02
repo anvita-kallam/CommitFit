@@ -116,6 +116,8 @@ export default function App() {
         setAnalysis(response.data);
         setShowSuccess(true);
         setLastAnalyzedUsername(currentUsername);
+        // Add to analysis history for future features
+        setAnalysisHistory(prev => [...prev.slice(-9), response.data]);
       }
     } catch (err: any) {
       if (err.code === 'ECONNABORTED') {
