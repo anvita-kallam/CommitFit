@@ -148,6 +148,8 @@ export default function App() {
     setError('');
     setRetryCount(0);
     setLastAnalyzedUsername('');
+    // Keep history even when clearing (for future history feature)
+    // setAnalysisHistory([]);
   };
 
   return (
