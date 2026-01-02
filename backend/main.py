@@ -310,8 +310,14 @@ MAX_CANDIDATES_IN_MEMORY = 100
 @app.post("/analyze_candidate")
 async def analyze_candidate(request: GitHubAnalysisRequest):
     """Analyze GitHub candidate repositories"""
-    if not request.github_username or not request.github_username.strip():
+    # Validate GitHub username format (basic validation)
+    username = request.github_username.strip()
+    if not username:
         raise HTTPException(status_code=400, detail="GitHub username is required")
+    
+    # GitHub usernames can only contain alphanumeric characters and hyphens
+    if not re.match(r'^[a-zA-Z0-9]([a-zA-Z0-9-]*[a-zA-Z0-9])?$', username):
+        raise HTTPException(status_code=400, detail="Invalid GitHub username format")
     
     try:
         logger.info(f"Analyzing candidate: {request.github_username}")
