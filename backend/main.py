@@ -320,9 +320,10 @@ async def analyze_candidate(request: GitHubAnalysisRequest):
         raise HTTPException(status_code=400, detail="Invalid GitHub username format")
     
     try:
-        logger.info(f"Analyzing candidate: {request.github_username}")
-        repos = fetch_user_repos(request.github_username, request.github_token)
-        logger.info(f"Found {len(repos)} repositories for {request.github_username}")
+        username = request.github_username.strip()
+        logger.info(f"Analyzing candidate: {username}")
+        repos = fetch_user_repos(username, request.github_token)
+        logger.info(f"Found {len(repos)} repositories for {username}")
         repo_insights = analyze_repo_languages(repos, request.github_token)
         
         # Extract skills from repository languages and names
@@ -346,7 +347,7 @@ async def analyze_candidate(request: GitHubAnalysisRequest):
         candidate_skills = [skill.strip().lower() for skill in candidate_skills if skill and skill.strip()]
         candidate_skills = list(set(candidate_skills))
         
-        candidate_data[request.github_username] = {
+        candidate_data[username] = {
             'skills': candidate_skills,
             'repo_insights': repo_insights
         }
@@ -358,7 +359,7 @@ async def analyze_candidate(request: GitHubAnalysisRequest):
         del candidate_data[oldest_key]
         logger.info(f"Memory limit reached, removed oldest candidate {oldest_key} from memory")
         
-        logger.info(f"Stored data for {request.github_username} with {len(candidate_skills)} skills")
+        logger.info(f"Stored data for {username} with {len(candidate_skills)} skills")
         logger.debug(f"Current candidates in memory: {list(candidate_data.keys())}")
         logger.debug(f"Top 5 skills: {candidate_skills[:5]}")
         
@@ -366,7 +367,7 @@ async def analyze_candidate(request: GitHubAnalysisRequest):
             "status": "success",
             "candidate_skills": candidate_skills,
             "repo_insights": repo_insights,
-            "username": request.github_username,
+            "username": username,
             "skill_count": len(candidate_skills)
         }
     except HTTPException:
