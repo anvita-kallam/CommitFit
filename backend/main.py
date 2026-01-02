@@ -336,12 +336,14 @@ async def analyze_candidate(request: GitHubAnalysisRequest):
             candidate_skills.extend(additional_skills)
         
         # Also check repository topics for additional skills
+        # Topics often contain technology keywords that aren't in language stats
         for repo in repos:
             topics = repo.get('topics', [])
             if topics:
                 topics_text = ' '.join(topics)
                 topic_skills = extract_skills_from_text(topics_text)
                 candidate_skills.extend(topic_skills)
+                logger.debug(f"Extracted {len(topic_skills)} skills from topics for repo {repo.get('name', 'unknown')}")
         
         # Remove duplicates and empty strings, normalize
         candidate_skills = [skill.strip().lower() for skill in candidate_skills if skill and skill.strip()]
