@@ -476,7 +476,11 @@ async def get_match_report(username: Optional[str] = None):
     matching_skills.sort()
     missing_skills.sort()
     
+    # Calculate additional metrics
+    match_percentage = round((len(matching_skills) / len(job_skills_lower) * 100), 2) if job_skills_lower else 0
+    
     logger.debug(f"Found {len(matching_skills)} matching skills and {len(missing_skills)} missing skills")
+    logger.debug(f"Match percentage: {match_percentage}%")
     
     # Ensure all lists are properly formatted and deduplicated
     unique_candidate_skills = sorted(list(set(candidate_skills)))
