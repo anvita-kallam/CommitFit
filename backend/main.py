@@ -147,8 +147,10 @@ def analyze_repo_languages(repos: List[Dict], github_token: Optional[str] = None
                     # Normalize by percentage to avoid bias from large repos
                     for lang, bytes_count in repo_languages.items():
                         if total_bytes > 0:
+                            # Normalize by percentage to weight all repos equally
                             language_stats[lang] += bytes_count / total_bytes
                         else:
+                            # Fallback to raw bytes if total is 0 (edge case)
                             language_stats[lang] += bytes_count
             except requests.exceptions.RequestException:
                 # Log but continue processing other repos
