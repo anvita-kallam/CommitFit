@@ -57,11 +57,12 @@ export function AnalysisCards({
               <Input
                 id="github-username"
                 type="text"
-                placeholder=""
+                placeholder="e.g., octocat"
                 value={username}
                 onChange={(e) => setUsername(e.target.value)}
                 disabled={isAnalyzing}
                 className="mt-1"
+                autoComplete="username"
               />
             </div>
 
