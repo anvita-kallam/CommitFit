@@ -22,6 +22,9 @@ interface AnalysisData {
     total_stars: number;
     total_forks: number;
     repo_count: number;
+    top_language?: string;
+    avg_stars_per_repo?: number;
+    avg_forks_per_repo?: number;
   };
 }
 
