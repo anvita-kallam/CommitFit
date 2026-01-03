@@ -99,6 +99,9 @@ def fetch_user_repos(username: str, github_token: Optional[str] = None) -> List[
     if github_token:
         headers["Authorization"] = f"token {github_token}"
     
+    # Add User-Agent header (GitHub API best practice)
+    headers["User-Agent"] = "CommitFit/1.1.0"
+    
     try:
         # Add User-Agent header to comply with GitHub API best practices
         headers["User-Agent"] = "CommitFit/1.0"
