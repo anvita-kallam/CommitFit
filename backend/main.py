@@ -383,8 +383,14 @@ async def analyze_candidate(request: GitHubAnalysisRequest):
 @app.post("/analyze_job")
 async def analyze_job(request: JobAnalysisRequest):
     """Analyze job description and extract required skills"""
-    if not request.job_description or not request.job_description.strip():
+    # Validate job description
+    job_desc = request.job_description.strip()
+    if not job_desc:
         raise HTTPException(status_code=400, detail="Job description is required")
+    
+    # Warn if job description is very short (might not extract many skills)
+    if len(job_desc) < 50:
+        logger.warning(f"Job description is very short ({len(job_desc)} chars), may not extract many skills")
     
     try:
         job_skills = extract_skills_from_text(request.job_description)
