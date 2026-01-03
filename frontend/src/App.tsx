@@ -39,6 +39,7 @@ export default function App() {
   const [retryCount, setRetryCount] = useState(0);
   const [lastAnalyzedUsername, setLastAnalyzedUsername] = useState<string>('');
   const [analysisHistory, setAnalysisHistory] = useState<AnalysisData[]>([]);
+  const [isLoadingHistory, setIsLoadingHistory] = useState(false);
 
   // Clear analysis when username changes
   useEffect(() => {
