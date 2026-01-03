@@ -393,7 +393,8 @@ async def analyze_job(request: JobAnalysisRequest):
         logger.warning(f"Job description is very short ({len(job_desc)} chars), may not extract many skills")
     
     try:
-        job_skills = extract_skills_from_text(request.job_description)
+        job_desc = request.job_description.strip()
+        job_skills = extract_skills_from_text(job_desc)
         
         # Normalize job skills: lowercase, strip whitespace, remove empty strings
         job_skills = [skill.strip().lower() for skill in job_skills if skill and skill.strip()]
