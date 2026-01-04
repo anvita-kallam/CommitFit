@@ -397,6 +397,9 @@ async def analyze_job(request: JobAnalysisRequest):
     if len(job_desc) < 50:
         logger.warning(f"Job description is very short ({len(job_desc)} chars), may not extract many skills")
     
+    # Log job description length for analytics
+    logger.info(f"Processing job description of {len(job_desc)} characters")
+    
     try:
         job_desc = request.job_description.strip()
         job_skills = extract_skills_from_text(job_desc)
