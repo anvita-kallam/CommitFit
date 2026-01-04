@@ -40,6 +40,9 @@ export default function App() {
   const [lastAnalyzedUsername, setLastAnalyzedUsername] = useState<string>('');
   const [analysisHistory, setAnalysisHistory] = useState<AnalysisData[]>([]);
   const [isLoadingHistory, setIsLoadingHistory] = useState(false);
+  
+  // Track API call duration for performance monitoring
+  const [lastApiDuration, setLastApiDuration] = useState<number | null>(null);
 
   // Clear analysis when username changes
   useEffect(() => {
