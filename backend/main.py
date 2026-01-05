@@ -310,7 +310,8 @@ candidate_data = {}
 job_data = {}
 
 # Maximum number of candidates to keep in memory (prevent memory leaks)
-MAX_CANDIDATES_IN_MEMORY = 100
+MAX_CANDIDATES_IN_MEMORY = 100  # Maximum number of candidates to store in memory
+CACHE_TTL_SECONDS = 3600  # Cache candidate data for 1 hour
 
 @app.post("/analyze_candidate")
 async def analyze_candidate(request: GitHubAnalysisRequest):
