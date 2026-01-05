@@ -120,6 +120,8 @@ export default function App() {
       
       // Only set analysis if username hasn't changed during the async operation
       if (username.trim() === currentUsername && response.data) {
+        const duration = Date.now() - startTime;
+        setLastApiDuration(duration);
         setAnalysis(response.data);
         setShowSuccess(true);
         setLastAnalyzedUsername(currentUsername);
