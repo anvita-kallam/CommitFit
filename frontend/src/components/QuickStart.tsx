@@ -9,7 +9,8 @@ interface QuickStartProps {
 }
 
 // Sample GitHub usernames for quick testing
-const sampleUsers = [
+  // Sample GitHub users for quick start
+  const sampleUsers = [
   '@torvalds',
   '@octocat',
   '@gaearon',
