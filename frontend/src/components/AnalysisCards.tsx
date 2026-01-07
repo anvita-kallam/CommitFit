@@ -73,11 +73,12 @@ export function AnalysisCards({
               <Input
                 id="access-token"
                 type="password"
-                placeholder=""
+                placeholder="ghp_xxxxxxxxxxxx"
                 value={accessToken}
                 onChange={(e) => setAccessToken(e.target.value)}
                 disabled={isAnalyzing}
                 className="mt-1"
+                autoComplete="off"
               />
               <p className="text-xs mt-1" style={{ color: 'rgba(0, 71, 142, 0.85)' }}>
                 Get your token from GitHub Settings → Developer settings → Personal access tokens
