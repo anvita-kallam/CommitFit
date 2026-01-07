@@ -1,5 +1,19 @@
 # Changelog
 
+## [2026-01-10] - January Improvements
+
+### Backend Enhancements
+- Added User-Agent header to GitHub API requests
+- Improved logging with job description length tracking
+- Added cache TTL constant for future implementation
+- Enhanced health check endpoint with version information
+- Added debug logging for skill normalization
+
+### Frontend Improvements
+- Added loading state for analysis history feature
+- Implemented API call duration tracking for performance monitoring
+- Enhanced input fields with better placeholders and autocomplete settings
+
 ## [2025-12-31] - Year-End Improvements
 
 ### Backend Enhancements
