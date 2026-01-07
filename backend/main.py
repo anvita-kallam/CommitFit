@@ -333,6 +333,7 @@ async def analyze_candidate(request: GitHubAnalysisRequest):
         repo_insights = analyze_repo_languages(repos, request.github_token)
         
         # Extract skills from repository languages and names
+        # Languages are a primary indicator of technical skills
         candidate_skills = list(repo_insights['languages'].keys())
         
         # Add skills from repository names and descriptions
