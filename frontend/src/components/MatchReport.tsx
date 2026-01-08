@@ -35,6 +35,7 @@ interface AnalysisData {
 interface MatchReportProps {
   analysis: AnalysisData;
   onReset: () => void;
+  apiDuration?: number | null; // Optional API call duration for display
 }
 
 export function MatchReport({ analysis }: MatchReportProps) {
