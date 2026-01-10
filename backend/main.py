@@ -363,6 +363,7 @@ async def analyze_candidate(request: GitHubAnalysisRequest):
         
     # Clean up old candidates if we exceed the limit (FIFO)
     # This prevents memory leaks in long-running services
+    # Ensures predictable memory usage in production environments
     if len(candidate_data) > MAX_CANDIDATES_IN_MEMORY:
         oldest_key = next(iter(candidate_data))
         del candidate_data[oldest_key]
