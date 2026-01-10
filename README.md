@@ -125,6 +125,12 @@ This will start both the backend and frontend services.
 
 Current version: **1.1.0** (January 2026)
 
+### Recent Updates (January 2026)
+- Enhanced API request headers with User-Agent
+- Added performance monitoring and API duration tracking
+- Improved logging and debugging capabilities
+- Better input validation and user experience improvements
+
 ## License
 
 This project is open source and available under the MIT License.
