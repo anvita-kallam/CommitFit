@@ -38,7 +38,7 @@ interface MatchReportProps {
   apiDuration?: number | null; // Optional API call duration for display
 }
 
-export function MatchReport({ analysis }: MatchReportProps) {
+export function MatchReport({ analysis, apiDuration }: MatchReportProps) {
   const getScoreColor = (score: number) => {
     // Use darker navy tones for better contrast and readability
     if (score >= 80) return 'rgba(0, 31, 63, 1)';
