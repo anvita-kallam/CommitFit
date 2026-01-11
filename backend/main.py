@@ -148,6 +148,7 @@ def analyze_repo_languages(repos: List[Dict], github_token: Optional[str] = None
                     repo_languages = lang_response.json()
                     total_bytes = sum(repo_languages.values())
                     # Normalize by percentage to avoid bias from large repos
+                    # Ensures fair representation of languages across all repositories
                     for lang, bytes_count in repo_languages.items():
                         if total_bytes > 0:
                             # Normalize by percentage to weight all repos equally
