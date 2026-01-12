@@ -1,5 +1,5 @@
 # CommitFit  
-**Automized Candidate to Job Matching from GitHub Activity**  
+**A Tool for Automized Candidate to Job Matching from GitHub Activity**  
 
 <p align="center">
   <a href="https://commit-fit.vercel.app/" target="_blank">
